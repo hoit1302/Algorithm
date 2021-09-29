@@ -44,12 +44,6 @@ public class epper_상_5 {
 		int[] turn = new int[N + 1]; // 감염까지 남은 주변 비감염 사람 수
 		Arrays.fill(turn, 0); // 사이즈 N+1, 0로 초기화
 
-		// 최조생성자 처리
-		for (int t : firstInfected) {
-			Q.add(t); // 최조생성자는 감염된 사람이고 주변인에게 영향을 주므로 큐에 넣어주고
-			answer[t] = 0; // 0분에 감염되었음을 저장한다.
-		}
-
 		// 주변인의 절반 이상이 루머를 믿을 때 본인도 루머를 믿으므로
 		// 몇 명이 감염되었을 때 자신이 감염되는지에 대한 정보를
 		// 사람 i의 주변인물 수 + 1 / 2의 몫으로 저장해둔다.
@@ -57,6 +51,11 @@ public class epper_상_5 {
 		for (int i = 1; i <= N; i++)
 			turn[i] = adj[i].length / 2;
 
+		// 최조생성자 처리
+		for (int t : firstInfected) {
+			Q.add(t); // 최조생성자는 감염된 사람이고 주변인에게 영향을 주므로 큐에 넣어주고
+			answer[t] = 0; // 0분에 감염되었음을 저장한다.
+		}
 		while (!Q.isEmpty()) { // 큐가 빌 때까지 탐색하는데, 큐가 비었다면 모든 탐색을 마쳤다는 의미이다.
 			int current = Q.poll(); // 현재, 가장 먼저 감염된 사람의
 

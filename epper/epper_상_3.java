@@ -12,14 +12,14 @@ class epper_상_3 {
 	public static int solution(int n, int k, int[] X, int[] Y) {
 		N = n;
 		for (int i = 0; i < k; i++)
-			xy[X[i] - 1][Y[i]] = 1;
+			xy[X[i] - 1][Y[i]] = 1; // 탐색 불가
 		queens(0);
 		return ans;
 	}
 
 	private static void queens(int i) {
 		if (promising(i)) {
-			if (i == N) {
+			if (i == N) { // 탈출조건
 				ans++;
 			} else {
 				for (int j = 1; j <= N; j++) {

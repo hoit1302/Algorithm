@@ -46,7 +46,7 @@ void play(deque<char>* wheel, int num, int dir) {
 	move_wheel(wheel, num, dir);  //해당 톱니 움직이기
 }
 
-int solution(deque<char>* wheel, int k, int** spin) {
+int solution(deque<char>* wheel, int k, int[][] spin) {
     for (int i = 0; i < k; i++) {
         int num = spin[i][0];
         int dir = spin[i][1];
