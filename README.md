@@ -1,3 +1,6 @@
 # Algorithm
 
-boj handle-푼 문제 수 보러 가기: https://www.acmicpc.net/user/hoit1302
+boj handle: https://www.acmicpc.net/user/hoit1302
+
+2022.01.10~
+이것이 코딩테스트다, 나동빈 저
