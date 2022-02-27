@@ -23,7 +23,7 @@ public:
     3) 세 번째 원소가 같은 경우, 네 번째 원소를 기준으로 내림차순 정렬
     4) 네 번째 원소가 같은 경우, 첫 번째 원소를 기준으로 오름차순 정렬
     */
-    bool operator <(Student &other) const {
+    bool operator <(const Student &other) const {
         if (this->kor == other.kor && this->eng == other.eng && this->m == other.m) {
             return this->name < other.name;
         }
