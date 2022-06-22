@@ -1,6 +1,3 @@
 # Algorithm
 
-boj handle: https://www.acmicpc.net/user/hoit1302
-
-2022.01.10~
-이것이 코딩테스트다, 나동빈 저
+  [![Solved.ac프로필](http://mazassumnida.wtf/api/v2/generate_badge?boj=hoit1302)](https://solved.ac/hoit1302)
