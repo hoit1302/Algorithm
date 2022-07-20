@@ -573,7 +573,7 @@ is_valid, visited, is_used 와 같은 배열을 잘 활용하자
 
 대표적 예시: 7662번, bfs&dfs, N-Queen
 
-## 이분 탐색
+## 04월 08일 이분 탐색
 
 1. binary_search()
 binary_search() -> 이분탐색으로 원소가 있는지를 확인하고, 결과를 리턴하는 함수
@@ -599,7 +599,7 @@ lower_bound(6) : 5
 map.lower_bound(x)
 ```
 
-## dfs & bfs
+## 04월 15일 dfs & bfs
 
 1. 메모리 효율적으로 사용하기
 
@@ -669,7 +669,7 @@ int main() {
 
 에러 났을 때 벡터 메모리 할당 부분 의심해보기
 
-## 최단 경로
+## 05월 03일 최단 경로
 
 BFS는 가중치가 1인 그래프의 최단 경로를 구하는 것과 같다.
 
@@ -683,7 +683,7 @@ BFS는 가중치가 1인 그래프의 최단 경로를 구하는 것과 같다.
 SSP: 다익스트라, 벨만-포드
 ASP: 플로이드-워셜
 
-### 다익스트라 Dijkstra 
+### 1. 다익스트라 Dijkstra 
 
 정점 기준 탐색
 
@@ -744,7 +744,7 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
 }
 ```
 
-### 플로이드 워셜
+### 2. 플로이드 워셜
 
 정점 기준 탐색
 
@@ -774,7 +774,7 @@ void floydWarshall(int n, vector<vector<int>> &graph) {
 }
 ```
 
-### 벨만-포드 bellmanFord
+### 3. 벨만-포드 bellmanFord
 
 하나의 시작점에서 모든 정점까지의 최단 경로를 구하는 SSP 알고리즘
 
@@ -859,7 +859,7 @@ int c = get<2>(edges[0]);
 코딩테스트는 시간이 부족하므로 int 최댓값을
 const int INF = 2e9로 두자.
 
-## 트리
+## 05월 17일 트리
 
 1. 트리는 간선의 수가 정점의 개수 - 1개이고 
 2. **특정한 두 정점 사이의 경로의 수는 단 1가지이다.**
@@ -901,9 +901,9 @@ O((ceil) log(V+1)) <= 이진 트리의 시간 복잡도 <= O(V)
 
 - 사이클 판단 (자료구조는 인접 리스트로 구현해야함) 4803번처럼(링크첨부) 
 
-## 유니온 파인드
+## 05월 24일 유니온 파인드
 
-## 문자열
+## ✨문자열
 
 for loop 돌릴 때 벡터나 문자열의 size 값을 활용하는데, 이때 unsigned int 대신 size_t를 활용하면 된다.
 
@@ -927,7 +927,7 @@ int t{} 이건 무슨 뜻이지?
 키로거 [#]()
 
 - string str2 = str1.insert(2, "CD"); // 2번 index에 문자열 삽입
-## 구현
+## ✨구현
 
 창용이의 시계 [#](https://www.acmicpc.net/problem/12840)
 - underflow 처리할 때 0보다 작을 때 1번만 더하는 것이 아니라 양수가 될 때까지 여러 번 더해주어야 함.
