@@ -3,7 +3,6 @@
 #include <deque>
 
 using namespace std;
-// 주의:
 /*
  * 행운의 바퀴 [#](https://www.acmicpc.net/problem/2840)
  * 풀이시간: 26분
