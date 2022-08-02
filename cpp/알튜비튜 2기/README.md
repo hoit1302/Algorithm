@@ -148,10 +148,18 @@ map<string, int> words;
 vector<pair<string, int>> vec(words.begin(), words.end());
 ```
 
-10. map의 초기화(?)
+10. map의 [] 연산자
 
 [] 연산자는 map에 없는 key를 참조하면 자동으로 선언된 값의 default 생성자를 호출해서 원소를 추가해준다.
 
+<img width=300 src="https://user-images.githubusercontent.com/68107000/182313521-5a5d9dd4-12fb-4bfe-b1d8-5cc53201ca30.png">
+
+```c++
+map<int, char> cmd;
+
+if (cmd[t]) -> t라는 key가 있을 때: null이 아닌 다른 값이면 true
+t라는 key가 존재하지 않을 때: 에러를 던지지 않고 key를 삽입시키고 value는 null로 할당돼 false를 리턴
+```
 
 11. map의 유효한 key 개수 세기
 
@@ -266,9 +274,48 @@ n X n matrix에서
 왼쪽 상향은 i-j 값으로 -(n-1) ~ (n-1)로 판단할 수 있다. (feat. nqueen)
 ```
 
-
-
 3. 제일 중요한 건 숫자가 작다 싶으면 브루트포스가 가능한지 시간 복잡도를 계산해보는 것이다!
+
+4. 조합 (nCr)
+
+#include <algorithm>에 next_permutation, prev_permutation 포함되어 있음.
+
+```c++
+// 5C2일 때, {1, 1, 0, 0, 0}으로 설정하고 prev_permutation 돌리면 됨.
+vector<bool> com(n, false);
+for (int i = 0; i < c; i++) {
+    com[i] = true;
+}
+
+do {
+    for (int i = 0; i < c; i++) {
+        if (com[i]) {
+            cout << element[i];
+        }
+    } cout << '\n';
+    // 한 가지의 조합을 구했음. 원하는 로직 수행하기
+} while (prev_permutation(com.begin(), com.end()));
+```
+
+5. 순열 (nPr)
+
+```c++
+// 5P2일 때 , {1, 1, 0, 0, 0}으로 설정하고 prev_permutation 돌리면 됨.
+vector<bool> com(n, false);
+for (int i = 0; i < c; i++) {
+    com[i] = true;
+}
+
+do {
+    for (int i = 0; i < c; i++) {
+        if (com[i]) {
+            cout << element[i];
+        }
+    } cout << '\n';
+    // 한 가지의 조합을 구했음. 원하는 로직 수행하기
+} while (prev_permutation(com.begin(), com.end()));
+```
+
 
 ## 03월 22일 - 구현, 코너케이스
 
@@ -599,6 +646,33 @@ lower_bound(6) : 5
 map.lower_bound(x)
 ```
 
+## 04월 12일 - 투 포인터
+
+배열의 탐색 효율을 높이기 위해 사용함.
+
+효율성 테스트 문제로 아주 많이 출제됨.
+
+일반적으로 시간 복잡도 O(n^2)의 문제를 시간 복잡도 O(n)으로 풀 수 있음.
+
+유형
+
+1. 두 개의 포인터 사이의 거리가 고정된다면 **슬라이딩 윈도우**
+  - 같은 방향으로 이동하며 탐색
+2. 포인터가 가까워짐
+  - left < right
+  - 보통 중복이 없고 정렬된 배열에서만 사용 가능하며 두 개의 포인터가 가리키는 값만 고려함
+3. 포인터가 멀어짐
+   - left <= right
+   - 두 개의 포인터가 가리키는 값 사이의 모든 값을 고려함.
+
+
+도둑 [#](https://www.acmicpc.net/problem/13422)
+* 첫번째 집과 마지막 집이 이웃한 형태 다루기
+* 슬라이딩 윈도우 문제인데 오랜만에 만나서 아이디어를 떠올리지 못함
+* 코너 케이스: 집 개수가 n이고 한 번에 훔쳐야하는 개수인 m이 n과 같을 때.
+* 이 때는 딱 1번만 확인하고 0 또는 1을 출력하면 됨.
+
+
 ## 04월 15일 - dfs & bfs
 
 1. 메모리 효율적으로 사용하기
@@ -903,6 +977,14 @@ O((ceil) log(V+1)) <= 이진 트리의 시간 복잡도 <= O(V)
 
 ## 05월 24일 - 유니온 파인드
 
+## 번외 주제 - 비트마스킹
+
+```c++
+run |= (1 << idx); // 원소 추가
+if (run & (1 << i)) // 원소의 존재여부 확인
+run &= ~(1 << i); // 원소 삭제
+```
+
 ## ✨문자열 오답노트
 
 for loop 돌릴 때 벡터나 문자열의 size 값을 활용하는데, 이때 unsigned int 대신 size_t를 활용하면 된다.
@@ -965,3 +1047,13 @@ int t{} 이건 무슨 뜻이지?
 * 풀이시간: 26분
 * 틀린 이유: 바퀴에 같은 글자는 두 번 이상 등장하지 않는다.
 * 방문 확인하는 로직 추가하여 AC 받음.
+
+⚾ [#](https://www.acmicpc.net/problem/17281)
+* 다시 구현해볼 문제.
+* 주어진 숫자가 굉장히 작을 땐 가장 먼저 브루트 포스를 의심해보자.
+
+뱀 [#](https://www.acmicpc.net/problem/3190)
+
+* 아디이어: 덱을 활용하여 쉽게 뱀의 위치 정보를 갱신할 수 있음.
+* 그래프 문제에서 범위 초과 판단할 때 주의깊게 작성하기!
+* if (x < 0 || y < 0 || n <= x || n <= y) continue;
