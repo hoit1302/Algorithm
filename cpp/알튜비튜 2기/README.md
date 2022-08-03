@@ -989,7 +989,9 @@ run &= ~(1 << i); // 원소 삭제
 
 for loop 돌릴 때 벡터나 문자열의 size 값을 활용하는데, 이때 unsigned int 대신 size_t를 활용하면 된다.
 
-int t{} 이건 무슨 뜻이지?
+int t{}: 중괄호를 사용하는 유니폼 초기화(uniform initialization). 중괄호 안에 값이 없을 땐 기본 초기화, 0으로 초기화한다.
+
+알파벳은 26개
 
 괄호 변환 [#](https://school.programmers.co.kr/learn/courses/30/lessons/60058)
 * 풀이 시간 50분 이내
@@ -1009,6 +1011,12 @@ int t{} 이건 무슨 뜻이지?
 키로거 [#]()
 
 - string str2 = str1.insert(2, "CD"); // 2번 index에 문자열 삽입
+
+JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
+- 문자열 다룰 때 엣지 케이스 (첫, 끝 경계 부분) 잘 보기
+- isupper(ch), islower(ch) -> true/false로 리턴
+- toupper(ch), tolower(ch) -> 대문자로, 소문자로 변환해 리턴해줌.
+  - 'A'-'a' 값을 더하거나 빼서 구현할 수도 있음.
 
 ## ✨구현 오답노트
 
