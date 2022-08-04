@@ -1065,3 +1065,21 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
 * 아디이어: 덱을 활용하여 쉽게 뱀의 위치 정보를 갱신할 수 있음.
 * 그래프 문제에서 범위 초과 판단할 때 주의깊게 작성하기!
 * if (x < 0 || y < 0 || n <= x || n <= y) continue;
+
+테트로미노 [#](https://www.acmicpc.net/problem/14500)
+* 걸린 시간: 1시간
+* 개선 사항
+  1. visited 배열 없애기
+  
+  ```c++
+  int save = p[nr][nc];
+  p[nr][nc] = 0; // 방문함.
+  backtracking(d + 1, nr, nc, ans + save);
+  p[nr][nc] = save;
+  ```
+  
+  2. 아이디어
+     * 보라색 블럭을 모든 케이스를 나누어 러프하게 구현함. backtracking 함수 안에서 처리할 수 있었음.
+     * 3개의 블럭이 결정된 이후에, 가운데에서 탐색해 구현할 수 있음.
+  3. 가지치기
+     - 나머지의 모든 값이 MAX여도 ans가 더 클 때는 더 이상 탐색할 이유가 없음.
