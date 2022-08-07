@@ -210,9 +210,9 @@ back_pop 이런 건 없지만 맨 뒤 원소에 접근할 수 있다!
 ```c++
 void eratosthenes() {
     is_prime[0] = is_prime[1] = false;
-    for (int i = 2; i * i <= MAX; i++) {
+    for (int i = 2; i * i <= SIZE; i++) {
         if (!is_prime[i]) continue; // 소수 아니면
-        for (int j = i * i; j < MAX; j += i) {
+        for (int j = i * i; j < SIZE; j += i) {
             is_prime[j] = false;
         }
     }
@@ -221,17 +221,17 @@ void eratosthenes() {
 
 1.2 소인수분해를 위해 idx 값이 가지는 가장 작은 소인수 저장하기
 ```c++
-vector<int> primes(MAX); // -1, -1, 2, 3, 2, 5, 2, 7, ...
+vector<int> primes(SIZE); // -1, -1, 2, 3, 2, 5, 2, 7, ...
 
 void calEratos() {
     primes[0] = primes[1] = -1;
-    for (int i = 2; i < MAX; i++) {
+    for (int i = 2; i < SIZE; i++) {
         primes[i] = i;
     }
 
-    for (int i = 2; i * i <= MAX; i++) { // sqrt(MAX) 까지
+    for (int i = 2; i * i <= SIZE; i++) { // sqrt(SIZE) 까지
         if (primes[i] != i) continue; // 소수가 아님
-        for (int j = i * i; j < MAX; j += i) { // 소수인 수에 대해서
+        for (int j = i * i; j < SIZE; j += i) { // 소수인 수에 대해서
             if (primes[j] == j) // 아직 갱신되지 않은 경우에만
                 primes[j] = i; // 갱신
         }
@@ -394,6 +394,18 @@ do {
 전형적인 유형을 적어보자면
 - 최솟값, 최댓값을 구하는 경우, 기존 정답보다 더 크면/작으면 중단하기
 
+```c++
+최솟값: // 탐색 중인데 이미 정답보다 큼. 더 이상 탐색하지 않아도 됨.
+if (ans <= tmp) {
+    return;
+}
+
+최댓값: // 남은 비용들이 모두 최댓값이어도 ans보다 작음. 더 이상 탐색하지 않아도 됨.
+if (tmp + (n-depth) * MAX <= ans) {
+    return;
+}
+```
+
 6. 재귀함수에서 리턴값 활용하기
 
 ```c++
@@ -420,6 +432,22 @@ bool fillSudoku(int fill) {
     return false; // true를 리턴시키지 못했다면 false를 리턴시켜줘야함.
 }
 ```
+
+외판원 순회 2 [10971](https://www.acmicpc.net/problem/10971)
+
+*대박이다... 샘플 코드는 샘플 코드인 이유가 있다...*
+
+시작 도시가 무엇인가에 따라서 답이 달라지기 때문에 시작 도시를 지정해 for loop를 사용하여 구현한다.
+
+하지만 시작 도시를 하나로 지정해도 답은 얻을 수 있다. 
+
+다시 잘~ 생각해보면 0 1 2 3 0 은 결국 1 2 3 0 1, 2 3 0 1 2, 3 0 1 2 3과 같은 비용이 든다.
+
+0으로 시작한 한 가지 경우가 1로 시작한 1가지 경우, 2로 시작한 1가지 경우, 3으로 시작한 1가지 경우와 동일하다.
+
+backtracking 알고리즘을 통해 0으로 시작하는 모든 경우를 탐색하기 때문에 시작점을 하나로 지정해주어도 풀이가 된다.
+
+그래서 실제로 제출해보면 최대 n 값인 10배 정도 차이가 난다.
 
 ## 03월 29일 - dp
 
@@ -1094,3 +1122,9 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
   - 정렬을 매번하지 않도록 구현 가능. 
     - 원소 개수만큼 도는데 앞에서 빼고(삭제) 필요하면 수정해 뒤로 넣기(증가)
     - 삽입될 수 있는 가장 작은 값인 1은 push_front()를 활용해서 넣어주면 됨.
+
+
++) 디버깅이 어려운 상황에서 문법 한 줄 한 줄에 대한 완벽한 이해가 없으면 막막하고 두려워짐.
+
+- deque은 sort 가능
+- vector erase, 3차원 vector 초기화 방법
