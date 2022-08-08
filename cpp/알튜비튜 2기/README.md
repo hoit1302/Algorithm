@@ -593,6 +593,33 @@ int lcs(string str1, string str2) {
 }
 ```
 
+- 외판원 순회 Traveling Salesman problem (TSP) [#](https://www.acmicpc.net/problem/2098)
+  * dp (재귀함수로, memoization)을 매우 어려워하는 나에게 가혹한 문제, **재도전하기**
+  * **dfs 탐색 순서가 곧 cost 배열 갱신 순서!**
+  * dfs 함수에 대한 모호한 이해
+  * 생소한 비트마스킹
+  * 막상 코드를 읽으면 꼬인 것 없이 깔끔한 형태이지만 코드를 쓱 보면서 안 읽힌다. 이해를 못했다는 거겠지.
+
+```c++
+cost[node][bit]: bit가 나타내는 도시를 방문했고 현재 node에 있을 때, 지금까지의 최소 비용
+dfs 함수 호출값을 저장해두는 것과 동일함.
+같은 parameter로 호출했을 땐 그 정보를 저장해두고 있다가 바로 return 해줌.
+
+int dfs(int cur_node, int cur_bit) {
+    // 1. 종료조건: 모두 방문했으면 (최대 깊이)
+
+    // 2. 이미 dp 배열이 최솟값으로 갱신이 되었다면 바로 memoization된 값을 반환
+
+    // 3. 갱신시키기
+    // cur_bit대로 경로가 고정되어 있고 
+    // cur_node에서 나아갈 수 있는 i들 중 끝까지 순회했을 때의 경로들 중 최솟값으로 갱신
+    cost[cur_node][cur_bit] = min(cost[cur_node][cur_bit],
+                                  map[cur_node][i] + dfs(i, cur_bit | 1 << i));
+    return cost[cur_node][cur_bit];
+}
+
+```
+
 ## 04월 01일 - 우선순위 큐
 
 1. 기본적인 선언
