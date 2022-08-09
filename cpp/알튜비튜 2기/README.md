@@ -1032,6 +1032,62 @@ O((ceil) log(V+1)) <= 이진 트리의 시간 복잡도 <= O(V)
 
 ## 05월 24일 - 유니온 파인드
 
+### **weighted union find**
+
+#### ① find 연산
+
+```cpp
+int findParent(int node) { // basic, O(N)
+		if (parent[node] < 0) return node; // 음수는 루트를 뜻함.
+		return findParent(parent[node]);
+}
+
+int findParent(int node) { // adv, 그래프 압축 -> O(1)
+		if (parent[node] < 0) return node;
+		return parent[node] = findParent(parent[node]);
+}
+```
+
+각 정점의 부모를 루트 정점으로 설정하여 **그래프를 압축**시킨다.
+
+전에 풀었던 외판원 순회 문제에서 함수 호출한 결과 값을 저장해둔다는 개념과 동일하다!!!
+
+기본 방식으로 구현해도 당연히 같은 결과값이 도출된다. 하지만 루트까지 부모의 부모의 부모를 계속 찾아가면서 최악의 경우 O(n)의 시간복잡도를 갖는다.
+
+그래프 압축을 활용하면 O(1)의 시간 복잡도가 걸린다.
+
+#### ② Union 연산
+
+```cpp
+void UnionParent(int a, int b) {
+		int ap = findParent(a), bp = findParent(bp); // 꼭 find 함수로 루트를 찾아야함.
+		if (ap == bp) return; // 이미 같은 집합에 속해 있음.
+		if (abs(parent[ap]) < abs(parent[bp])) { // bp의 집합 크기가 더 큼. bp를 루트로
+				parent[bp] += parent[ap]; // bp 집합의 크기가 ap 크기만큼 커짐.
+				parent[ap] = bp;
+		} else {
+				parent[ap] += parent[bp];
+				parent[bp] = ap;
+		
+		}
+}
+```
+
+합집합 시, 두 노드 중 어떤 것을 루트로 되지만, 자식을 많이 가지고 있는 노드를 루트로 하는 것이 더 효율적이다. 그래서 집합의 크기를 parent 배열에서 저장한다.
+
+### ③ parent 배열의 값의 의미
+
+- **음수**: **루트**이다. 절댓값이 **집합의 크기**이다.
+- **양수**: 저장된 값으로 루트를 **찾을 수 있다.**
+
+### ④ 근본적인 주의점!
+
+두 노드가 같은 집합인지 찾을 때 바로 parent 배열에 접근하면 안된다.
+
+union 연산을 하다보면 union 연산만으로는 바로 루트 정점으로 갱신되지 않는다.
+
+find 연산을 거쳐야만 parent가 루트로 갱신된다.
+
 ## 번외 주제 - 비트마스킹
 
 ```c++
