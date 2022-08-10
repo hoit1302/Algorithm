@@ -571,7 +571,6 @@ for (int i = 1; i <= n; i++) { // n: 물건 개수
         }
     }
 }
-
 ```
   
 - LCS (최장 공통 부분 수열)
@@ -1038,15 +1037,17 @@ O((ceil) log(V+1)) <= 이진 트리의 시간 복잡도 <= O(V)
 
 ```cpp
 int findParent(int node) { // basic, O(N)
-		if (parent[node] < 0) return node; // 음수는 루트를 뜻함.
-		return findParent(parent[node]);
+    if (parent[node] < 0) return node; // 음수는 루트를 뜻함.
+    return findParent(parent[node]);
 }
 
 int findParent(int node) { // adv, 그래프 압축 -> O(1)
-		if (parent[node] < 0) return node;
-		return parent[node] = findParent(parent[node]);
+    if (parent[node] < 0) return node;
+    return parent[node] = findParent(parent[node]);
 }
 ```
+
+루트 정점의 **위치**를 리턴하는 함수이다.
 
 각 정점의 부모를 루트 정점으로 설정하여 **그래프를 압축**시킨다.
 
@@ -1060,16 +1061,16 @@ int findParent(int node) { // adv, 그래프 압축 -> O(1)
 
 ```cpp
 void UnionParent(int a, int b) {
-		int ap = findParent(a), bp = findParent(bp); // 꼭 find 함수로 루트를 찾아야함.
-		if (ap == bp) return; // 이미 같은 집합에 속해 있음.
-		if (abs(parent[ap]) < abs(parent[bp])) { // bp의 집합 크기가 더 큼. bp를 루트로
-				parent[bp] += parent[ap]; // bp 집합의 크기가 ap 크기만큼 커짐.
-				parent[ap] = bp;
-		} else {
-				parent[ap] += parent[bp];
-				parent[bp] = ap;
-		
-		}
+    int ap = findParent(a), bp = findParent(bp); // 꼭 find 함수로 루트의 위치를 찾아야함.
+    if (ap == bp) return; // 이미 같은 집합에 속해 있음.
+    if (abs(parent[ap]) < abs(parent[bp])) { // bp의 집합 크기가 더 큼. bp를 루트로
+            parent[bp] += parent[ap]; // bp 집합의 크기가 ap 크기만큼 커짐.
+            parent[ap] = bp;
+    } else {
+            parent[ap] += parent[bp];
+            parent[bp] = ap;
+    
+    }
 }
 ```
 
