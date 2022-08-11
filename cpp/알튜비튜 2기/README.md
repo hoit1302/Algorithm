@@ -1212,3 +1212,18 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
 
 - deque은 sort 가능
 - vector erase, 3차원 vector 초기화 방법
+
+2048 (Easy) [#](https://www.acmicpc.net/problem/12100)
+그냥 다시 풀기...
+
+2차원 배열을 reverse했을 때 **행 순서가 뒤집힌다!**
+```c++
+1 2 2
+2 2 4
+4 8 8
+
+reverse(board.begin(), board.end()); // board 자체가 바뀜, 리턴값 void, header: algorithm 
+4 8 8
+2 2 4
+1 2 2
+```
