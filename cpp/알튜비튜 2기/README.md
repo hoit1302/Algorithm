@@ -280,6 +280,8 @@ n X n matrix에서
 
 #include <algorithm>에 next_permutation, prev_permutation 포함되어 있음.
 
+참고로, 숫자가 오름차순으로 정렬되어 있을 때 `next`, 내림차순으로 정렬되어 있을 때 `prev`를 사용한다.
+
 ```c++
 // 5C2일 때, {1, 1, 0, 0, 0}으로 설정하고 prev_permutation 돌리면 됨.
 vector<bool> com(n, false);
@@ -797,6 +799,15 @@ int main() {
 
 에러 났을 때 벡터 메모리 할당 부분 의심해보기
 
+5. bfs
+특정 최단 거리까지 탐색하라고 할 때
+
+이어서 탐색해야할 정보만 큐에 삽입해서 쉽게 구현할 수 있다!
+```c++
+if (vi[nx][ny] < s) { // 2초까지만
+    q.push({nx, ny});
+}
+```
 ## 05월 03일 - 최단 경로
 
 BFS는 가중치가 1인 그래프의 최단 경로를 구하는 것과 같다.
