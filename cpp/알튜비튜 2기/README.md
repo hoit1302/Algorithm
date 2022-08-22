@@ -830,9 +830,13 @@ ASP: 플로이드-워셜
 
 (cf. 시작점으로부터의 거리가 아니라 간선 자체의 가중치만 고려하는 것은 Prim 알고리즘)
 
-O(VlogV + ElogV)
+시간 복잡도: O(VlogV + ElogV)
 
-priority queue를 활용해 갱신된 dist가 우선순위에 따라 배치될 때 (logn), 가장 작은 값을 찾아 삭제할 때 (logn)
+- O(V) -> 현재 가장 가까운 정점을 정점의 수만큼(V) 찾아야 함.
+
+- O(E) -> 간선의 수만큼 (E) dist를 갱신하게 됨
+
+- priority queue를 활용해 갱신된 dist가 우선순위에 따라 배치될 때 (logN), 가장 작은 값을 찾아 삭제할 때 (logN)
 
 다익스트라는 음의 사이클을 잡아낼 수 없음
 
@@ -850,6 +854,11 @@ while (갱신할 정점이 있을 때까지) {
         }
     }
 }
+
+v는 *탐색하지 않은 정점 중* 이란 조건이 붙어있다.
+일단 pq에서 빼내고 최단 거리로 갱신된 정점이라면 continue로 처리해 구현한다. 
+실 구현할 때는 개인적으로 u, v보다는 from to를 활용한다.
+dist가 갱신되었을 때는 갱신된 정보를 다시 pq에 삽입해주어야 한다.
 ```
 
 코드
@@ -862,20 +871,15 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
     dist[start] = 0;
     pq.push({0, start});
     while (!pq.empty()) {
-        int weight = pq.top().first;
-        int node = pq.top().second;
+        auto [weight, node] = pq.top(); pq.pop();
         pq.pop();
-
         if (weight > dist[node]) { //이미 더 작은 값으로 기록된 정점
             continue;
         }
-        for (int i = 0; i < graph[node].size(); i++) {
-            int next_node = graph[node][i].first;
-            //시작점으로부터 현재 node를 거쳐 다음 정점까지 가는 경로값
-            int next_weight = weight + graph[node][i].second;
-            if (next_weight < dist[next_node]) { //최단 경로 값이 갱신된다면
-                dist[next_node] = next_weight;
-                pq.push({next_weight, next_node});
+        for (auto [next_weight, next_node]: graph[node]) {
+            if (dist[node] + next_weight < dist[next_node]) { //최단 경로 값이 갱신된다면
+                dist[next_node] = dist[node] + next_weight;
+                pq.push({dist[next_node], next_node});
             }
         }
     }
@@ -889,7 +893,8 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
 
 가능한 모든 정점 2개의 조합에 대한 최단 경로를 구하는 ASP 알고리즘
 
-두 정점 사이의 최단 경로에 포함될 수 있는 모든 정점의 경우를 고려하는 dp 접근
+두 정점 사이의 최단 경로에 포함될 수 있는 모든 정점의 경우를 고려하는 **dp** 접근
+- 갱신되는 정보를 그래프 자체에 저장하고 계속해서 활용
 
 O(V^3)
 
@@ -948,34 +953,28 @@ for (모든 간선에 대해) { // E
 
 코드
 ```c++
-vector<ll> bellmanFord(int start, int n, int m, vector<tp> &edges) {
+// edge는 struct로 정의된 구조체.
+vector<ll> bellmanFord(int start, int n, int m, vector<edge> &edges) {
     //최솟값 갱신하는 과정에서 언더플로우 일어날 수 있음
     //500 * 6000 * (-10000) = -3e10 => int 범위 넘어감!
     vector<ll> dist(n + 1, INF);
-
-    //시작 정점 초기화
-    dist[start] = 0;
+    dist[start] = 0;     //시작 정점 초기화
     for (int i = 1; i <= n; i++) {
-        bool flag = true; // 더 이상 반복문을 실행할 필요가 없는지 확인 (갱신 확인)
+        bool is_ch = false; // 더 이상 반복문을 실행할 필요가 없는지 확인 (갱신 확인)
         for (int j = 0; j < m; j++) {
-            // s->d인 간선의 가중치가 w
-            int s = get<0>(edges[j]);
-            int d = get<1>(edges[j]);
-            int w = get<2>(edges[j]);
-
+            auto [s, d, w] = edges[j];
             if (dist[s] == INF) { // 아직 시작점에서 s로 가는 경로가 발견되지 않았으므로 갱신할 수 없음
                 continue;
             }
-            ll next_weight = dist[s] + w;
-            if (next_weight < dist[d]) {
-                dist[d] = next_weight;
-                flag = false;
-                if (i == n) { // n번째 갱신이었다면 -> 음의 사이클
+            if (dist[s] + w < dist[d]) {
+                dist[d] = dist[s] + w;
+                is_ch = true;
+                if (i == n) { // n번째 갱신이었다면 -> 음의 사이클!
                     return {-1};
                 }
             }
         }
-        if (flag) { //더 이상 갱신되지 않았다면 더 탐색할 필요 없음
+        if (!is_ch) { //더 이상 갱신되지 않았다면 더 탐색할 필요 없음
             break;
         }
     }
