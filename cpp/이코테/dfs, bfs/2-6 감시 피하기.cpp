@@ -10,39 +10,41 @@
  */
 using namespace std;
 typedef pair<int, int> ci;
+int n;
 vector<ci> t;
-vector<vector<char>> hallway;
+vector<vector<char>> hallway, change;
 int dx[4] = {0, 0, 1, -1};
 int dy[4] = {1, -1, 0, 0};
 
+bool findStud(int x, int y, int dir_x, int dir_y) {
+    if (x < 0 || y < 0 || n <= x || n <= y || change[x][y] == 'O') {
+        return false;
+    }
+    if (change[x][y] == 'S') {
+        return true;
+    }
+    if (findStud(x + dir_x, y +dir_y, dir_x, dir_y)) {
+        return true;
+    } return false;
+}
 bool isPos(int n, vector<int> &select) {
-    vector<vector<char>> cp(hallway.begin(), hallway.end());
+    change.assign(hallway.begin(), hallway.end());
     for (int i = 0; i < select.size(); i++) {
         int r = select[i] / n, c = select[i] % n;
-        if (cp[r][c] != 'X') return false;
-        cp[r][c] = 'O';
+        if (change[r][c] != 'X') return false;
+        change[r][c] = 'O';
     }
 
     for (auto [i, j]: t) {
         for (int dir = 0; dir < 4; dir++) {
-            int nx = dx[dir] + i, ny = dy[dir] + j;
-            while (true) {
-                // cout << nx << ' ' << ny << '\n';
-                if (nx < 0 || ny < 0 || n <= nx || n <= ny || cp[nx][ny] == 'O') {
-                    break;
-                }
-                if (cp[nx][ny] == 'S') {
-                    return false;
-                }
-                nx += dx[dir], ny += dy[dir];
-            }
+            if (findStud(dx[dir] + i,  dy[dir] + j, dx[dir], dy[dir]))
+                return false;
         }
     }
     return true;
 }
 
 int main() {
-    int n;
     cin >> n;
     hallway.assign(n, vector<char>(n));
     for (int i = 0; i < n; i++) {
@@ -64,6 +66,9 @@ int main() {
                 select.push_back(i);
             }
         }
+        for (int a: select) {
+            cout << a << ' ';
+        } cout << '\n';
         if (isPos(n, select)) {
             flag = true;
             break;
