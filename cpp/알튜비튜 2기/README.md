@@ -1122,6 +1122,72 @@ union 연산을 하다보면 union 연산만으로는 바로 루트 정점으로
 
 find 연산을 거쳐야만 parent가 루트로 갱신된다.
 
+## 05월 31일 - 최소 신장 트리 (MST)
+하나의 그래프에서 만들 수 있는 트리들을 **신장 트리(Spanning Tree)**라고 부름
+신장 트리 중 **간선의 가중치 합이 가장 작은 트리**가 최소 신장 트리
+MST를 구하는 알고리즘으로는 **크루스칼**, **프림**이 있음
+크루스칼은 유니온 파인드 알고리즘을 활용하고, 프림은 다익스트라와 유사
+간선이 적다면 크루스칼, 간선이 많거나 시작점이 주어지면 프림
+
+### Kruskal
+
+**유니온 파인드** 알고리즘을 이용해 MST를 구하는 알고리즘
+유니온 파인드에서 같은 집합이라면 사이클이 발생한다는 점을 이용
+가중치가 가장 작은 간선부터 선택하며 사이클이 발생하지 않는다면 트리에 포함
+유니온 파인드의 시간 복잡도가 O(1)에 가깝기 때문에 **간선을 정렬하는 시간 복잡도만 고려**
+간선의 수를 E라고 할 때, 시간 복잡도는 O(ElogE)
+간선이 많지 않을 때 주로 사용
+
+```c++
+int findParent(int a) {
+    if (parent[a] < 0) return a;
+    return parent[a] = findParent(parent[a]);
+}
+bool unionParent(int a, int b) {
+    int ap = findParent(a), bp = findParent(b);
+    if (ap == bp) return false; // 이미 같은데 붙이면 사이클 형성, 트리의 정의를 벗어남.
+    if (abs(parent[ap]) < abs(parent[bp])) { // bp를 루트로
+        parent[bp] += parent[ap];
+        parent[ap] = bp;
+    } else {
+        parent[ap] += parent[bp];
+        parent[bp] = ap;
+    }
+    return true;
+}
+int kruskal(int v, vector<tp> &edges) {
+    ll ans = 0;
+    int cnt = 0;
+    for (auto [cost, a, b]: edges) {
+        if (unionParent(a, b)) { // union에 성공했으면
+            ans += cost;
+            cnt++;
+        }
+        if (cnt == v - 1) // 필요한 간선을 모두 찾은 경우
+            return ans;
+    }
+    return 0; // MST 못 만든 경우
+}
+
+int main() {
+    int v, e, a, b, c;
+    cin >> v >> e;
+    vector<tp> edges(e); // tuple 사용
+    for (int i = 0; i < e; i++) {
+        cin >> a >> b >> c;
+        edges[i] = {c, a, b};
+    }
+    sort(edges.begin(), edges.end()); // 시간복잡도 O(ElogE)
+    cout << kruskal(v, edges);
+}
+```
+
+### 소수점 자릿수 고정하여 출력하는 방법
+```c++
+cout << fixed;  // 고정된 소수점 자리로 출력할 것을 선언
+cout.precision(2);  // 소수점 2번째자리로 정확도를 설정
+```
+
 ## 06월 07일 - 위상정렬 (topological sort)
 
 - 그래프의 선후 관계를 지키며 모든 정점을 일렬로 나열하는 알고리즘 
