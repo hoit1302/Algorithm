@@ -26,9 +26,8 @@ bool cmpStr(const string &a, const string &b) {
 ```
 
 4. pair<int, int> 정렬
-첫번째 값 먼저 오름차순, 동일하면 두번째 값 오름차순
+   첫번째 값 먼저 오름차순, 동일하면 두번째 값 오름차순
 
-   
 ## 03월 08일 - 맵과 셋
 
 1. character가 숫자인가?
@@ -65,12 +64,13 @@ c++의 set, map은 이진 트리로 구현된 컨테이너이기 때문에 기�
 O(1)인 해시 셋 `unordered_set`, 해시 맵 `unordered_map` 을 사용해서 풀이해보자.
 
 5. 부분 문자열 구하는 방법
-
 - input.substr(시작 index, 문자열의 길이) -> O(N)
+  
   - `#include <iostream>`에는 `#include <string>`이 내장되어 있으므로 보통 따로 추가하지 않는다.
-- substr(시작 index) -> 시작 index ~ 마지막까지의 부분 문자열
-- += 로 직접 더함 -> O(1)
 
+- substr(시작 index) -> 시작 index ~ 마지막까지의 부분 문자열
+
+- += 로 직접 더함 -> O(1)
 6. 반복자로 출력하기
 
 ```c++
@@ -92,12 +92,14 @@ for (auto & iter : map) {
 C++에서는 특정 변수의 실제 이름 대신 사용할 수 있는 & (참조자) 라는 기능이 있다. C의 포인터와도 유사한 개념이다.
 
 - 참조자의 선언
-```c++ 
-int 변수이름;               // 변수의 선언
+  
+  ```c++
+  int 변수이름;               // 변수의 선언
+  ```
 
 int& 참조자이름 = 변수이름; // 참조자 선언
-```
 
+```
 이렇게 선언된 참조자는 대상 변수와 같은 메모리 위치를 참조하게 된다. 
 
 예를 들어, int&는 int형 변수에 대한 참조를 의미한다.
@@ -139,7 +141,6 @@ insert 하지 못했을 경우, 즉 중복된 값이 이미 있어서 못넣은 
 s.find(value) 는 찾지 못했을 때 `s.end()` 반복자를 반환합니다.
 
 9. map, set 자료형과 다른 다른 컨테이너를 vector container로 초기화하기
-
 - map과 set 자료형에서는 정렬을 할 수 없으니, 정렬이 필요한 경우 이렇게 구현할 수 있음.
 
 ```c++
@@ -178,17 +179,19 @@ for (auto &[key, value] : m) { // p는 pair<int, int> 구조임.
         kind++;
     }
 }
-
 ```
 
 ## 03월 11일 - 스택, 큐, 덱
 
 1. 공백 포함 입력받기
-```c++
-getline(cin, <변수명>)
+   
+   ```c++
+   getline(cin, <변수명>)
+   ```
 
 string str;
 getline(cin, str);
+
 ```
 2. queue가 지원하는 메소드
 
@@ -202,10 +205,23 @@ getline(cin, str);
 back_pop 이런 건 없지만 맨 뒤 원소에 접근할 수 있다!
 ```
 
-
 ## 03월 15일 - 정수론
 
-1. 소수 구하기, 에라토스테네스의 체
+1. 입력에 대해 소수 판정하기
+   
+   나누는 수를 2부터 √𝑁까지 살펴보는 O(√𝑁) 방법으로 소수 판정
+   
+   ```cpp
+   bool isPrime(ㅑn) {
+       if (n <= 1) return false;
+       for (ll i = 2; i * i <= n; i++)
+           if (n % i == 0)
+               return false;
+       return true;
+   }
+   ```
+
+2. 소수 구하기, 에라토스테네스의 체
 
 ```c++
 void eratosthenes() {
@@ -220,6 +236,7 @@ void eratosthenes() {
 ```
 
 1.2 소인수분해를 위해 idx 값이 가지는 가장 작은 소인수 저장하기
+
 ```c++
 vector<int> primes(SIZE); // -1, -1, 2, 3, 2, 5, 2, 7, ...
 
@@ -248,6 +265,7 @@ int calGcd(int a, int b) { // a < b
     return calGcd(b % a, a);
 }
 ```
+
 ## 03월 18일 - 브루트 포스
 
 1. string to int, int to string 정수 문자열 형변환
@@ -318,7 +336,6 @@ do {
 } while (prev_permutation(com.begin(), com.end()));
 ```
 
-
 ## 03월 22일 - 구현, 코너케이스
 
 1. c++의 switch-case 문에서 string은 사용이 불가하다.
@@ -360,13 +377,15 @@ v.erase(--v.end());
 ```
 
 ## 03월 25일 - 백트래킹
+
 1. deque은 index 접근이 가능하다!!
 
 2. 컨테이너 내 원소의 개수를 세어주는 함수
-```c++
-count(belt.begin(), belt.end(), 0)
-0의 개수를 반환함.
-```
+   
+   ```c++
+   count(belt.begin(), belt.end(), 0)
+   0의 개수를 반환함.
+   ```
 
 3. 전역 변수 사용
 
@@ -394,6 +413,7 @@ do {
 5. 가지치기 잘 해주기
 
 전형적인 유형을 적어보자면
+
 - 최솟값, 최댓값을 구하는 경우, 기존 정답보다 더 크면/작으면 중단하기
 
 ```c++
@@ -416,7 +436,7 @@ bool fillSudoku(int fill) {
     if (fill == 81) {
         return true;
     }
-    
+
     // 재귀함수 호출하는 경우의 수 2가지
     // 1. 값을 채우지 않아도 될 때, 바로 호출하기
     if (sudoku[r][c] != 0) {
@@ -456,13 +476,17 @@ backtracking 알고리즘을 통해 0으로 시작하는 모든 경우를 탐색
 **memoization**: 이전에 구해둔 값을 저장해서 중복 계산을 방지, 시간과 공간 모든 면에서 효율적
 
 **구현 종류**
+
 - Top-down (n부터)
   - 구하려 하는 문제를 작은 문제로 호출하여 탐색
 - Bottom-up (0부터)
   - 이미 알고 있는 작은 문제부터 원하는 문제까지 탐색
   - 속도가 더 빠름
 
+<u>동적 계획법의 특징은 이미 계산한 작은 조각들을 또 다시 계산할 필요가 없다는 것이다.<u>
+
 bottom-up
+
 ```c++
 dp[1][1] = tri[1][1];
 for (int i = 2; i <= n; i++) {
@@ -473,8 +497,8 @@ for (int i = 2; i <= n; i++) {
 ```
 
 top-down
-```c++
 
+```c++
 int f(int r, int c) {
     if (r == 1)
         return tri[1][1];
@@ -491,13 +515,14 @@ int f(int r, int c) {
 **동적 계획법을 푸는 대표적인 문제와 방식**
 
 - LIS (가장 긴 증가하는 부분 수열)
-```c++
-/**
+  
+  ```c++
+  /**
   * i번 idx로 끝나는 증가하는 부분 수열 길이의 최댓값 계산하기
   * 따라서 dp의 마지막 원소가 정답이 아님. 최댓값을 갱신해주어야 함.
   * 시간 복잡도 O(n^2)
- */
-int lis(int n, vector<int> &arr) {
+  */
+  int lis(int n, vector<int> &arr) {
     int ans = 1;
     vector<int> dp(n, 1);
     for (int i = 0; i < n; i++) {
@@ -509,60 +534,80 @@ int lis(int n, vector<int> &arr) {
         ans = max(ans, dp[i]);
     }
     return ans;
-}
-
-/**
- * 2.
- * dp[i] : 증가하는 부분 수열의 길이가 i인 수 중에 가장 작은 수
- * idx : 가장 긴 증가하는 부분 수열의 길이
- *
- * 시간 복잡도 O(nk) (k는 idx의 크기)
- *
- * -> k가 n이 될 수 있으므로 이론상 시간복잡도는 O(n^2)으로 동일하지만,
- *    증가하는 관계일 때 break를 해줌으로써 실제 연산횟수는 더 적어서 1번 함수보다 빠른 풀이
- */
-int lisAdv(int n, vector<int> &arr) {
-    vector<int> dp(n + 1, 0); //dp[1]을 갱신하기 위해 dp[0] = 0으로 설정
-    int idx = 0;
-
-    for (int i = 0; i < n; i++) {
-        for (int j = idx; j >= 0; j--) {
-            if (arr[i] > dp[j]) { //증가하는 관계라면
-                dp[j + 1] = arr[i];
-                if (j == idx) { //최장 길이 갱신
-                    idx++;
-                }
-                break;
-            }
-        }
-    }
-    return idx;
-}
-
-/**
- * 3.
- * lisAdv에서 이분탐색을 활용해 구현
- * 시간 복잡도 O(nlogk) (k는 dp의 크기)
- */
-int lisFinal(int n, vector<int> &arr) {
-    vector<int> dp;
-    
-    for (int i = 0; i < n; i++) {
-        int pos = lower_bound(dp.begin(), dp.end(), arr[i]) - dp.begin(); //arr[i] 이상의 값이 처음 나오는 위치
-        if (pos == dp.size()) { //arr[i]가 가장 크다면 pos 값이 dp.size()와 같음 -> 최장 길이 갱신
-            dp.push_back(arr[i]);
-        }
-        dp[pos] = arr[i]; //dp[pos]의 값이 arr[i]이상이므로 더 작은 arr[i]로 덮어 씌우기
-    }
-    return dp.size();
-}
+  }
   ```
 
+/**
+
+* 2.
+
+* dp[i] : 증가하는 부분 수열의 길이가 i인 수 중에 가장 작은 수
+
+* idx : 가장 긴 증가하는 부분 수열의 길이
+
+* 
+
+* 시간 복잡도 O(nk) (k는 idx의 크기)
+
+* 
+
+* -> k가 n이 될 수 있으므로 이론상 시간복잡도는 O(n^2)으로 동일하지만,
+
+* 증가하는 관계일 때 break를 해줌으로써 실제 연산횟수는 더 적어서 1번 함수보다 빠른 풀이
+  */
+  int lisAdv(int n, vector<int> &arr) {
+  vector<int> dp(n + 1, 0); //dp[1]을 갱신하기 위해 dp[0] = 0으로 설정
+  int idx = 0;
+  
+  for (int i = 0; i < n; i++) {
+    for (int j = idx; j >= 0; j--) {
+  
+        if (arr[i] > dp[j]) { //증가하는 관계라면
+            dp[j + 1] = arr[i];
+            if (j == idx) { //최장 길이 갱신
+                idx++;
+            }
+            break;
+        }
+  
+    }
+  }
+  return idx;
+  }
+
+/**
+
+* 3.
+
+* lisAdv에서 이분탐색을 활용해 구현
+
+* 시간 복잡도 O(nlogk) (k는 dp의 크기)
+  */
+  int lisFinal(int n, vector<int> &arr) {
+   vector<int> dp;
+  
+   for (int i = 0; i < n; i++) {
+  
+       int pos = lower_bound(dp.begin(), dp.end(), arr[i]) - dp.begin(); //arr[i] 이상의 값이 처음 나오는 위치
+       if (pos == dp.size()) { //arr[i]가 가장 크다면 pos 값이 dp.size()와 같음 -> 최장 길이 갱신
+           dp.push_back(arr[i]);
+       }
+       dp[pos] = arr[i]; //dp[pos]의 값이 arr[i]이상이므로 더 작은 arr[i]로 덮어 씌우기
+  
+   }
+   return dp.size();
+  }
+  
+  ```
+  
+  ```
 - knapsack
-```c++
-3번 물품을 사용할 때, 1~2번 물품한 사용한 정보에서 갱신되어야함.
-순차적으로 갱신할 때 같은 물품을 중복해서 사용할 수 있음.
-이를 방지하기 위해 최대 용량을 감소시키면서 계산하기 
+  
+  ```c++
+  3번 물품을 사용할 때, 1~2번 물품한 사용한 정보에서 갱신되어야함.
+  순차적으로 갱신할 때 같은 물품을 중복해서 사용할 수 있음.
+  이를 방지하기 위해 최대 용량을 감소시키면서 계산하기 
+  ```
 
 int ans = 1;
 for (int i = 1; i <= n; i++) { // n: 물건 개수
@@ -573,8 +618,8 @@ for (int i = 1; i <= n; i++) { // n: 물건 개수
         }
     }
 }
+
 ```
-  
 - LCS (최장 공통 부분 수열)
 ```c++
 int lcs(string str1, string str2) {
@@ -618,16 +663,16 @@ int dfs(int cur_node, int cur_bit) {
                                   map[cur_node][i] + dfs(i, cur_bit | 1 << i));
     return cost[cur_node][cur_bit];
 }
-
 ```
 
 ## 04월 01일 - 우선순위 큐
 
 1. 기본적인 선언
-```c++
-priority_queue<ci> max_heap; // 기본적으로
-priority_queue<ci, vector<ci>, greater<>> min_heap;
-```
+   
+   ```c++
+   priority_queue<ci> max_heap; // 기본적으로
+   priority_queue<ci, vector<ci>, greater<>> min_heap;
+   ```
 
 2. 정렬 조건 만들기
 
@@ -679,8 +724,8 @@ is_valid, visited, is_used 와 같은 배열을 잘 활용하자
 ## 04월 08일 - 이분 탐색
 
 1. binary_search()
-binary_search() -> 이분탐색으로 원소가 있는지를 확인하고, 결과를 리턴하는 함수
-`algorithm.h`에 정의되어 있다.
+   binary_search() -> 이분탐색으로 원소가 있는지를 확인하고, 결과를 리턴하는 함수
+   `algorithm.h`에 정의되어 있다.
 
 2. lower_bound()
 
@@ -689,7 +734,8 @@ c++에서는 이진 탐색으로 원소를 탐색하는 lower_bound, upper_bound
 vector가 정렬되어 있어야 한다.
 
 #include <algorithm> 헤더를 필요로 한다.
-``` c++
+
+```c++
 int arr[6] = { 1,2,3,4,5,6 };
 cout << "lower_bound(6) : " << lower_bound(arr, arr + 6, 6) - arr;
 lower_bound(6) : 5
@@ -698,6 +744,7 @@ lower_bound(6) : 5
 3. 맵과 셋을 활용
 
 맵과 셋은 원소를 정렬된 상태로 저장하기 때문에 알고리즘 헤더 없이 자체적으로 이분 탐색 함수를 사용할 수 있다.
+
 ```c++
 map.lower_bound(x)
 ```
@@ -713,23 +760,24 @@ map.lower_bound(x)
 유형
 
 1. 두 개의 포인터 사이의 거리가 고정된다면 **슬라이딩 윈도우**
-  - 같은 방향으로 이동하며 탐색
+   - 같은 방향으로 이동하며 탐색
 2. 포인터가 가까워짐
-  - left < right
-  - 보통 중복이 없고 정렬된 배열에서만 사용 가능하며 두 개의 포인터가 가리키는 값만 고려함
+   - left < right
+   - 보통 중복이 없고 정렬된 배열에서만 사용 가능하며 두 개의 포인터가 가리키는 값만 고려함
 3. 포인터가 멀어짐
    - left <= right
    - 두 개의 포인터가 가리키는 값 사이의 모든 값을 고려함.
 
-
 도둑 [#](https://www.acmicpc.net/problem/13422)
+
 * 첫번째 집과 마지막 집이 이웃한 형태 다루기
 * 슬라이딩 윈도우 문제인데 오랜만에 만나서 아이디어를 떠올리지 못함
 * 코너 케이스: 집 개수가 n이고 한 번에 훔쳐야하는 개수인 m이 n과 같을 때.
 * 이 때는 딱 1번만 확인하고 0 또는 1을 출력하면 됨.
 
-
 ## 04월 15일 - dfs & bfs
+
+두 알고리즘 모두 인접행렬을 사용하여 만든 그래프의 경우에는 O(V^2)의 시간복잡도를 가지고 인접리스트를 사용하여 만든 그래프의 경우에는 O(V+E)의 시간복잡도를 가진다.
 
 1. 메모리 효율적으로 사용하기
 
@@ -738,6 +786,7 @@ visited 배열 따로 만들지 않아도 될까?
 2. dfs, return 값 활용하기
 
 전역에 변수를 선언하고 활용하는 방법도 있지만
+
 ```c++
 int sum;
 void findGroup(int x, int y) {
@@ -766,6 +815,7 @@ int main() {
 ```
 
 함수의 리턴값으로 연결된 노드의 개수를 반환받도록 구현할 수 있다. 
+
 ```c++
 int findGroup(int x, int y, int sum) { // x,y 방문했을 때 누적 sum개 방문했음.
     map[x][y] = 0;
@@ -800,9 +850,10 @@ int main() {
 에러 났을 때 벡터 메모리 할당 부분 의심해보기
 
 5. bfs
-특정 최단 거리까지 탐색하라고 할 때
+   특정 최단 거리까지 탐색하라고 할 때
 
 이어서 탐색해야할 정보만 큐에 삽입해서 쉽게 구현할 수 있다!
+
 ```c++
 if (vi[nx][ny] < s) { // 2초까지만
     q.push({nx, ny});
@@ -814,11 +865,15 @@ if (vi[nx][ny] < s) { // 2초까지만
 - 도움 받은 설명: https://youtu.be/DppIIIsR6nk
 
 - 최단거리를 구할 때 dist 배열에 시작점에서부터 x까지의 최단 거리의 상태를 저장하게 된다.
+
 - 이 때 최단거리 이외의 부차적인 정보를 저장하고 싶다면 **dist 배열의 차원을 추가**해야한다!
+
 - 예를 들어 벽을 부수지 않고 온 최단 거리는 dist[x][0], 부숴서 온 최단 거리는 dist[x][1]에 저장한다.
+
 - 강의에서는 이를 `격자형 그래프` 라고 칭하고 있다.
 
 - bfs 구현 시, **첫 방문이 최단 거리임을 보장함**!
+  
   - 방문했음 == 최단 경로로 갱신되었음!!!
 
 아기 상어 [#](https://www.acmicpc.net/problem/16236)
@@ -826,6 +881,7 @@ if (vi[nx][ny] < s) { // 2초까지만
 - 다시 풀어보기에 정말 좋은 문제✨ 
 
 - bfs로 탐색하면서 최단 거리에 존재하는 먹을 수 있는 물고기들의 좌표 정보를 저장해두는 함수 구현 
+  
   - 24, 30, 39: min_dist의 값에 최소 거리 값을 저장해두고 크면 탐색하지 않도록 가지치기
   - 34: 경계를 벗어나면 out, 이미 방문했다면 out, 방문할 수 없는 조건이라면 out
   - 35: out되지 않았다면 갱신 가능하단 뜻이므로 바로 갱신
@@ -845,7 +901,7 @@ BFS는 가중치가 1인 그래프의 최단 경로를 구하는 것과 같다.
 SSP: 다익스트라, 벨만-포드
 ASP: 플로이드-워셜
 
-### 1. 다익스트라 Dijkstra 
+### 1. 다익스트라 Dijkstra
 
 정점 기준 탐색
 
@@ -864,6 +920,7 @@ ASP: 플로이드-워셜
 다익스트라는 음의 사이클을 잡아낼 수 없음
 
 의사코드
+
 ```c++
 모든 정점까지의 거리를 담은 dist 배열을 INF로 초기화
 시작 정점까지의 거리를 0으로 초기화
@@ -885,6 +942,7 @@ dist가 갱신되었을 때는 갱신된 정보를 다시 pq에 삽입해주어�
 ```
 
 코드
+
 ```c++
 vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
     vector<int> dist(v + 1, INF); //각 정점까지의 최단 경로 저장
@@ -895,7 +953,6 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
     pq.push({0, start});
     while (!pq.empty()) {
         auto [weight, node] = pq.top(); pq.pop();
-        pq.pop();
         if (weight > dist[node]) { //이미 더 작은 값으로 기록된 정점
             continue;
         }
@@ -917,6 +974,7 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
 가능한 모든 정점 2개의 조합에 대한 최단 경로를 구하는 ASP 알고리즘
 
 두 정점 사이의 최단 경로에 포함될 수 있는 모든 정점의 경우를 고려하는 **dp** 접근
+
 - 갱신되는 정보를 그래프 자체에 저장하고 계속해서 활용
 
 O(V^3)
@@ -963,6 +1021,7 @@ O(VE)
 = 최단 경로를 이루는 간선이 V개 이상인 정점 A, B가 있다. = **V번 이상 갱신되는 간선이 있다.**
 
 의사 코드
+
 ```c++
 for (V-1회 루프) { // (V-1) * E
     for (모든 간선에 대해)
@@ -975,6 +1034,7 @@ for (모든 간선에 대해) { // E
 ```
 
 코드
+
 ```c++
 // edge는 struct로 정의된 구조체.
 vector<ll> bellmanFord(int start, int n, int m, vector<edge> &edges) {
@@ -1006,6 +1066,7 @@ vector<ll> bellmanFord(int start, int n, int m, vector<edge> &edges) {
 ```
 
 튜플 사용 방법
+
 ```c++
 #include <tuple>
 typedef tuple<int, int, int> tp;
@@ -1028,14 +1089,13 @@ const int INF = 2e9로 두자.
 4. 사이클이 존재하면 안된다. 
 5. 계층 관계가 존재한다.
 
-
 트리의 종류: 크게 이진트리와 일반 트리로 나뉜다.
 
 트리 구현: 
 
 - 실시간으로 트리를 만들 땐, **구조체 + 포인터 조합** 으로 구현하고, 5639번처럼(링크첨부) 
 - 이미 트리의 관계가 정의되어 있다면 **맵**으로 구현한다.
- 
+
 트리임이 확실히 가정된다면
 
 -> 간선이 단방향이고, 사이클은 없다는 트리의 특성이 가정된 것이다.
@@ -1054,6 +1114,7 @@ O((ceil) log(V+1)) <= 이진 트리의 시간 복잡도 <= O(V)
 트리 연산
 
 기본적으로 그래프의 한 종류라서, DFS, BFS 탐색이 가능하다.
+
 - 트리의 정점 수 구하기
 - 리프 노드의 수 구하기
 - 트리의 높이 구하기
@@ -1102,7 +1163,7 @@ void UnionParent(int a, int b) {
     } else {
             parent[ap] += parent[bp];
             parent[bp] = ap;
-    
+
     }
 }
 ```
@@ -1123,6 +1184,7 @@ union 연산을 하다보면 union 연산만으로는 바로 루트 정점으로
 find 연산을 거쳐야만 parent가 루트로 갱신된다.
 
 ## 05월 31일 - 최소 신장 트리 (MST)
+
 하나의 그래프에서 만들 수 있는 트리들을 **신장 트리(Spanning Tree)**라고 부름
 신장 트리 중 **간선의 가중치 합이 가장 작은 트리**가 최소 신장 트리
 MST를 구하는 알고리즘으로는 **크루스칼**, **프림**이 있음
@@ -1183,6 +1245,7 @@ int main() {
 ```
 
 ### 소수점 자릿수 고정하여 출력하는 방법
+
 ```c++
 cout << fixed;  // 고정된 소수점 자리로 출력할 것을 선언
 cout.precision(2);  // 소수점 2번째자리로 정확도를 설정
@@ -1198,6 +1261,7 @@ cout.precision(2);  // 소수점 2번째자리로 정확도를 설정
 - 일상 생활에서는 보통 스케줄을 짤 때 많이 쓰임
 
 용어
+
 - indegree(진입차수): 방향 그래프에서 해당 정점으로 들어오는 간선의 수
 
 ### 위상 정렬 구현
@@ -1213,6 +1277,7 @@ cout.precision(2);  // 소수점 2번째자리로 정확도를 설정
 ```
 
 ### 위상 정렬 코드
+
 ```c++
 vector<int> topologicalSort(int n, vector<int> &indegree) {
     vector<int> ans; // 방문한 정점 순서 기록
@@ -1253,6 +1318,7 @@ int t{}: 중괄호를 사용하는 유니폼 초기화(uniform initialization). 
 알파벳은 26개
 
 괄호 변환 [#](https://school.programmers.co.kr/learn/courses/30/lessons/60058)
+
 * 풀이 시간 50분 이내
 * 틑린 이유: "나머지 문자열의 괄호 방향을 뒤집어서 뒤에 붙입니다." 에서 뒤집는 거에만 집중해서 냅다 reverse 해버렸음.
 * 문법 정리
@@ -1261,6 +1327,7 @@ int t{}: 중괄호를 사용하는 유니폼 초기화(uniform initialization). 
   * str.append(tmp); // str에 이어붙여짐.
 
 팰린드롬 만들기 [#](https://www.acmicpc.net/problem/1213)
+
 * 틀린 이유: 홀수 개인 문자의 개수가 1을 초과할 때 시작 부분에 홀수 개인 문자를 추가해야한다.
 * 문법 정리
   * character를 string에 추가하는 방법: str.append(1, ch); // str에 추가됨.
@@ -1272,6 +1339,7 @@ int t{}: 중괄호를 사용하는 유니폼 초기화(uniform initialization). 
 - string str2 = str1.insert(2, "CD"); // 2번 index에 문자열 삽입
 
 JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
+
 - 문자열 다룰 때 엣지 케이스 (첫, 끝 경계 부분) 잘 보기
 - isupper(ch), islower(ch) -> true/false로 리턴
 - toupper(ch), tolower(ch) -> 대문자로, 소문자로 변환해 리턴해줌.
@@ -1280,16 +1348,18 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
 ## ✨구현 오답노트
 
 창용이의 시계 [#](https://www.acmicpc.net/problem/12840)
+
 - underflow 처리할 때 0보다 작을 때 1번만 더하는 것이 아니라 양수가 될 때까지 여러 번 더해주어야 함.
 
 숫자 야구 [#](https://www.acmicpc.net/problem/2503)
+
 * 처음 제출 (32분)까지 시간이 걸린 이유: for loop i, j 실수!!!
 * 틀린 이유: 문제에서 빠뜨린 조건. 세 자리 수는 1~9, 서로 다른 수
 * 서로 다른 수인 세자리 문자열 구하는데 시간 오래 걸림 
   * 순열, 조합 등 어느 문제인지 파악하고 stl을 활용해 구현하는 방법 익히기
 
 등수 구하기 [#](https://www.acmicpc.net/problem/1205)
- 
+
 * 문제 설명: 위에서 몇번째?, 동일 점수, 가장 작은(좋은) 등수
 * (예전에 처음 풀 때 못 풀어냈다가 다시 꺼내서 풀어봤음.)
 * 틀린 이유: 코너 케이스는 처음부터 완벽히 처리했는데, 핵심 로직을 잘못 이해했음
@@ -1297,9 +1367,13 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
   * 같은 점수 이후에는 랭크를 다시 랭킹 리스트에서 몇 번째인지로 따져야하는데 여러 같은 점수들을 1개로 묶어버렸었음.
 
 컨베이어 벨트 위의 로봇 [#](https://www.acmicpc.net/problem/20055)
+
 * 코테에서 낼만한 좋은 문제.
+
 * 회전 아이디어는 투 포인터를 두어 잘 구현했음, deque로도 풀 수 있으므로 확인해보자.
+
 * 틀린 부분 1. 0과 n-1이 연결되는 자료 구조를 다루는 것이 핵심임.
+  
   * end에서 start로 차례로 순회해야하는데
   * end = 2, start = 5 이런 경우에만 집중해서 항상 end += SIZE을 했음.
   * start = 0, end = 5일 땐 end 값이 배로 커져서 로직을 더 여러번 수행함.
@@ -1307,15 +1381,18 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
   * 디버깅할 때 로직이 분명한 부분은 제외하고 세부적으로 for loop의 idx 값을 확인해보자
 
 * 틀린 부분 2. 로봇이 이동하기 위해서는 이동하려는 칸에 로봇이 없으며, 그 칸의 내구도가 1 이상 남아 있어야 한다.
+  
   * 이 조건 문장에서 이동하려는 칸에 로봇이 없어야 한다는 조건을 빼먹었었다.
   * 금방 찾기는 했지만 한 번에 작성할 수 있도록 문제를 답지처럼 계속 읽자!
 
 행운의 바퀴 [#](https://www.acmicpc.net/problem/2840)
+
 * 풀이시간: 26분
 * 틀린 이유: 바퀴에 같은 글자는 두 번 이상 등장하지 않는다.
 * 방문 확인하는 로직 추가하여 AC 받음.
 
 ⚾ [#](https://www.acmicpc.net/problem/17281)
+
 * 다시 구현해볼 문제.
 * 주어진 숫자가 굉장히 작을 땐 가장 먼저 브루트 포스를 의심해보자.
 
@@ -1326,8 +1403,11 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
 * if (x < 0 || y < 0 || n <= x || n <= y) continue;
 
 테트로미노 [#](https://www.acmicpc.net/problem/14500)
+
 * 걸린 시간: 1시간
+
 * 개선 사항
+  
   1. visited 배열 없애기
   
   ```c++
@@ -1354,7 +1434,6 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
     - 원소 개수만큼 도는데 앞에서 빼고(삭제) 필요하면 수정해 뒤로 넣기(증가)
     - 삽입될 수 있는 가장 작은 값인 1은 push_front()를 활용해서 넣어주면 됨.
 
-
 +) 디버깅이 어려운 상황에서 문법 한 줄 한 줄에 대한 완벽한 이해가 없으면 막막하고 두려워짐.
 
 - deque은 sort 가능
@@ -1364,6 +1443,7 @@ JAVA vs C++ [#](https://www.acmicpc.net/problem/3613)
 그냥 다시 풀기...
 
 2차원 배열을 reverse했을 때 **행 순서가 뒤집힌다!**
+
 ```c++
 1 2 2
 2 2 4
@@ -1376,19 +1456,21 @@ reverse(board.begin(), board.end()); // board 자체가 바뀜, 리턴값 void, 
 ```
 
 박스포장 [#](https://www.acmicpc.net/problem/1997)
+
 * 테트리스처럼 블럭을 제한된 높이 내에서 쌓는 문제. 풀어냈고 아이디어만 가져가기
 * 대부분 2차원 배열을 다룰 때 아래 방향으로 흘러가도록 구현한다.
 * 입력받을 때 x축 대칭시키고 다루자.
 
 오목 [#](https://www.acmicpc.net/problem/2615)
+
 * ↙↗ ←→ ↖↘ ↑↓ 방향으로 같은 종류의 연속된 개수 세기
 * 조건: 가장 왼쪽에 있는 바둑알 위치를 출력해야함
 * -> 맨 위부터 탐색하므로 우상향 대각선 다룰 때 예외 처리해주기
 
 주사위 굴리기 [#](https://www.acmicpc.net/problem/14499)
+
 * 말 그대로 주사위 굴리는 것을 구현하는 문제
 * 문제에서 주어진 주사위는 전형적인 정육면체이다
 * 내가 구현한 것처럼 동쪽을 구현하고 서쪽은 동쪽 3번으로 구현할 수도 있지만
 * 전개도의 모든 경우 수 4가지를 구해서 아래와 같이 요소를 재정의하여 변경할 수 있다.
 * `dice = {dice[2], dice[1], dice[5], dice[0], dice[4], dice[3]};`
- 
