@@ -967,6 +967,10 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
 }
 ```
 
+응용문제: [미확인 도착지](https://www.acmicpc.net/problem/9370): 다양한 최단 경로가 있을 때를 추가로 다뤄야하는 문제
+
+- 같은 거리/최단 경로일 때로 분기를 나누어서 작성해주어야 함.
+
 ### 2. 플로이드 워셜
 
 정점 기준 탐색
