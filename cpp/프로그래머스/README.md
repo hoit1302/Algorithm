@@ -238,7 +238,7 @@ step 4: new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거�
      - 20명, 한 명 당 10개까지 주문할 수 있음. 
      - 2^10 - 1개의 메뉴 조합 -> 20 * 2^10-1 = 20460 
      - 이 때, 메뉴 조합을 구하기 위해 이진법을 활용
-     - ![image](https://user-images.githubusercontent.com/68107000/191903318-371828ad-bce6-4601-9990-e3986e655a5e.jpg)
+     - <img width=360px src="https://user-images.githubusercontent.com/68107000/191903318-371828ad-bce6-4601-9990-e3986e655a5e.jpg"/>
    - 빈도수 저장
      - 각 메뉴 조합의 개수를 세야할 때 map을 활용한다. O(NlogN) 가능
      - 문제 두 번째 표를 자료구조로 옮기면 `map<int, string> freq[11]`
