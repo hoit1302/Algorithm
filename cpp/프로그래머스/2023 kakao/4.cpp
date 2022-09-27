@@ -4,13 +4,7 @@
 using namespace std;
 typedef long long ll;
 vector<int> s;
-int findProperLen (int bsz) {
-    for (int i = 0; i < s.size(); i++) {
-        if (bsz <= s[i]) {
-            return s[i];
-        }
-    }
-}
+
 bool isAll0(string str) {
     for (char ch: str) {
         if (ch != '0') return false;
@@ -49,7 +43,11 @@ vector<int> solution(vector<ll> numbers) {
     vector<int> ans;
     for (ll num: numbers) {
         string b = to2(num);
-        int len = findProperLen(b.size());
+        int len = 1; //: b.size()와 같거나 큰 2^N - 1값 (1, 3, 7, 15, 31, ...)
+        while (len < b.size()) { // 작을 땐 키워줘야함.
+            len = len * 2 + 1;
+//            cout << len << ' ';
+        }
         string bi;
         for (int i = 0; i < len - b.size(); i++) {
             bi.append(1, '0');
@@ -57,4 +55,8 @@ vector<int> solution(vector<ll> numbers) {
         ans.push_back(btree(bi));
     }
     return ans;
+}
+
+int main() {
+    solution({1000000000000000});
 }
