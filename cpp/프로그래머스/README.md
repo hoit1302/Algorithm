@@ -274,3 +274,24 @@ s, a, b를 시작점으로 각각 다익스트라 수행 후 각 정점까지 �
 시간 복잡도
 
 - O(3 * (VlogV + ElogV) + 200)
+
+## 2021 Dev-Matching: 웹 백엔드 개발자(상반기)
+
+### 2. 행렬 테두리 회전하기
+
+풀이시간: 32분, 배열을 한 칸씩 이동시키는 로직 작성
+단순한 로직이지만 자칫 잘못하면 시간이 오려걸림. 
+여러 번 생각해보면서 익숙하게 만들자
+
+```c++
+void rotate(vector<ci> &arr) { // 회전할 길대로 좌표를 넣어둠.
+    int dis, pre = g[arr[0].first][arr[0].second];
+    for (int i = 1; i < arr.size(); i++) {
+        int x2 = arr[i].first, y2 =  arr[i].second;
+        dis = g[x2][y2]; // 2. (x2, y2) 갱신 전에 저장해둠.
+        g[x2][y2] = pre; // 1. (x2, y2) 값이 이전 값으로 갱신됨.
+        pre = dis; // 3. 다음 번 for 문에서 이전 값으로 활용되도록 갱신해줌.
+    }
+    return;
+}
+```
