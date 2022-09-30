@@ -260,6 +260,16 @@ step 4: new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거�
 
 팁: 카카오 문제는 문제를 꼼꼼히 읽으면 자료 구조에 대한 힌트를 얻을 수 있다.
 
+### 문제 3번 [순위 검색](https://school.programmers.co.kr/learn/courses/30/lessons/72412)
+
+map<string, vector<int>> 자료형을 사용해서 3*2*2*2 가지의 key 값에 해당하는 스코어를 저장한 뒤
+
+쿼리에서 요구하는 key 값들을 구하고 이분 탐색 (`lower_bound`)으로 찾는 문제
+
+자료구조 아이디어, 조합(재귀), 이분 탐색의 지식을 잘 갖추고 있어야 풀이할 수 있는 문제였다.
+
+lower_bound는 전에도 익혔는데 전혀 떠오르지 않았다. 꼭 기억해두자.
+
 ### 문제 4번 [합승 택시 요금](https://school.programmers.co.kr/learn/courses/30/lessons/72413)
 
 30분 소요, 대박... 한 번에 맞았다 🥲😭
