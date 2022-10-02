@@ -10,13 +10,12 @@ ll getDist(pi start, pi end) {
     return abs(start.first - end.first) + abs(start.second - end.second);
 }
 
-int main()
-{
+int main() {
     int n;
     cin >> n;
     pi start, end;
     cin >> start.first >> start.second >> end.first >> end.second;
-    pi answer = { 0, INF };
+    pi answer = {0, INF};
     for (int i = 0; i < n; i++) {
         int m;
         vector<pi> middle;
@@ -24,7 +23,7 @@ int main()
         for (int j = 0; j < m; j++) {
             int s, e;
             cin >> s >> e;
-            middle.push_back({ s, e });
+            middle.push_back({s, e});
         }
         long long dist = getDist(start, middle[0]);
         for (int j = 0; j < middle.size() - 1; j++) {

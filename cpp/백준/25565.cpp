@@ -83,7 +83,7 @@ void cross(int n, int m) {
     }
 }
 /*
- * SUAPC 2022 Summer I번, 딸기와 토마토
+ * 딸기와 토마토 (https://www.acmicpc.net/problem/25565)
  * 유형: 빡구현 (내기준.., 나는 깔끔하게 푸는 법을 모르기 때문에 골드 2~3..? 정도로 봄)
  *
  * 1의 개수를 세서 case를 나눈다.
