@@ -1313,6 +1313,63 @@ if (run & (1 << i)) // 원소의 존재여부 확인
 run &= ~(1 << i); // 원소 삭제
 ```
 
+## 번외 주제 - 연결리스트
+
+배열: 임의의 원소 접근 O(1), 임의의 위치에 원소 추가 O(N), 연속된 메모리 배치
+
+연결 리스트: k번째 원소 접근 O(k), 임의의 위치에 원소 추가 O(1), 메모리 배치 불연속, 공간 오버헤드 O(N)
+
+c++ stl list는 doubly linked list로 구현되었음.
+
+메서드: insert(iter, elem), erase(iter), push_back(), pop_back(), push_front(), pop_front()
+
+예제 코드, 출처 [#](https://github.com/encrypted-def/basic-algo-lecture/blob/master/0x04/list_example.cpp)
+
+```c++
+int main(void) {
+  list<int> L = {1,2}; // 1 2
+  list<int>::iterator t = L.begin(); // t는 1을 가리키는 중
+  L.push_front(10); // 10 1 2
+  cout << *t << '\n'; // t가 가리키는 값 = 1을 출력
+  L.push_back(5); // 10 1 2 5
+  L.insert(t, 6); // t가 가리키는 곳 앞에 6을 삽입, 10 6 1 2 5
+  t++; // t를 1칸 앞으로 전진, 현재 t가 가리키는 값은 2
+  t = L.erase(t); // t가 가리키는 값을 제거, 그 다음 원소인 5의 위치를 반환
+                  // 10 6 1 5, t가 가리키는 값은 5
+  cout << *t << '\n'; // 5
+  for(auto i : L) cout << i << ' ';
+  cout << '\n';
+}
+```
+
+키로거 문제 풀이 중 코드, https://www.acmicpc.net/problem/5397
+
+이러한 키보드 문제에 활용될 수 있음.
+
+```c++
+list<char> l;
+auto cursor = l.end(); // l.begin(), l.end() 같은 곳
+for (auto ch: input) {
+    if (isalnum(ch)) {
+        l.insert(cursor, ch); // 커서 '앞'에 ch 삽입
+    } else if (ch == '<') {
+        if (cursor != l.begin()) cursor--;
+    } else if (ch == '>') {
+        if (cursor != l.end()) cursor++;
+    } else {
+        if (cursor != l.begin()) {
+            // '커서가 가리키는 값'을 삭제하니
+            // 살제할 원소로 이동
+            cursor--;
+            // 삭제한 원소 '다음 위치' 반환
+            cursor = l.erase(cursor);
+        }
+    }
+}
+```
+
+
+
 ## ✨문자열 오답노트
 
 for loop 돌릴 때 벡터나 문자열의 size 값을 활용하는데, 이때 unsigned int 대신 size_t를 활용하면 된다.
