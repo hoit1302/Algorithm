@@ -183,31 +183,42 @@ for (auto &[key, value] : m) { // p는 pair<int, int> 구조임.
 
 ## 03월 11일 - 스택, 큐, 덱
 
-1. 공백 포함 입력받기
-   
-   ```c++
-   getline(cin, <변수명>)
-   ```
+**공백 포함 입력받기**
+
+```c++
+getline(cin, <변수명>)
 
 string str;
 getline(cin, str);
-
 ```
-2. queue가 지원하는 메소드
 
-```c++
+**queue가 지원하는 메소드**
+
 기본적으로 
+
 - push(x): 뒤에 삽입하기
 - front(), pop(): 맨 앞 원소 찾고 빼내기
 
 그런데! 특이하게 지원하는 것이 있다.
-- back()
-back_pop 이런 건 없지만 맨 뒤 원소에 접근할 수 있다!
-```
 
-내게 부족한 알고리즘 사고 능력을 키우는 문제 추천: [스택 수열](https://www.acmicpc.net/problem/1874), [탑](https://www.acmicpc.net/problem/2493)
+- back()
+
+back_pop 이런 건 없지만 맨 뒤 원소에 접근할 수 있다!
+
+**내게 부족한 알고리즘 사고 능력을 키우는 문제 추천**
+
+[스택 수열](https://www.acmicpc.net/problem/1874), [탑](https://www.acmicpc.net/problem/2493)
 
 스택을 활용해 오름차순, 내림차순을 조건에 맞게 구현하는 문제
+
+**find 함수 사용하기**
+
+```c++
+#include <algorithm>
+int idx = find(dq.begin(), dq.end(), t) - dq.begin(); // t가 있는 인덱스
+```
+
+[최솟값 찾기](https://www.acmicpc.net/problem/11003), 덱을 활용해서 다시 풀어보면 좋겠음.
 
 ## 03월 15일 - 정수론
 
@@ -216,7 +227,7 @@ back_pop 이런 건 없지만 맨 뒤 원소에 접근할 수 있다!
    나누는 수를 2부터 √𝑁까지 살펴보는 O(√𝑁) 방법으로 소수 판정
    
    ```cpp
-   bool isPrime(ㅑn) {
+   bool isPrime(int n) {
        if (n <= 1) return false;
        for (ll i = 2; i * i <= n; i++)
            if (n % i == 0)
