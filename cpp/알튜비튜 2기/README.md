@@ -1,5 +1,8 @@
 ## 03월 04일 - 정렬
 
+<details><summary style="color:skyblue">헤더/내림차순/비교함수</summary>
+<p>
+	
 1. header 
 
 ```c++
@@ -28,10 +31,14 @@ bool cmpStr(const string &a, const string &b) {
 4. pair<int, int> 정렬
    첫번째 값 먼저 오름차순, 동일하면 두번째 값 오름차순
 
+</p>
+</details>
+
 ## 03월 08일 - 맵과 셋
 
-**character 사용법**
-
+<details><summary style="color:skyblue">char 종류판단, char string 변환, 대소문자 판단변환</summary>
+<p>
+	
 1. character 판단 함수
 
 ```c++
@@ -39,35 +46,14 @@ bool t = isdigit(input[0]);
 isalpha(char), isalnum(char)
 ```
 
-2. string ⇔ int
-
-```c++
-#include <string> 에 포함되어 있지만 c++14, 17  -> 표준에 이미 포함되어 있음.
-int int = stoi(input);
-string str = to_string(int_value);
-```
-
-3. character를 숫자로
-
-```c++
-input[0] - '0';
-```
-
-4. char to string
+2. char to string
 
 ```c++
 string (size_t n, char c);
 s.append(1, c); // s 문자열에 c 문자를 string으로 변환하여 덧붙임.
 ```
 
-5. ascii code, 상식
-```c++
-'A' = 65
-'a'= 97
-알파벳 개수: 26개
-```
-
-6. 대소문자 판별, 변환
+3. 대소문자 판별, 변환
 ```c++
 bool isupper ( int c );
 bool islower ( int c );
@@ -75,7 +61,31 @@ int toupper ( int c );
 int tolower ( int c );
 ```
 
-**부분 문자열 구하는 방법**
+</p>
+</details>
+
+ascii code, 상식
+
+```c++
+'A' = 65
+'a'= 97
+알파벳 개수: 26개
+```
+
+<details><summary style="color:skyblue">string ⇔ int</summary>
+<p>
+
+```c++
+#include <string> 에 포함되어 있지만 c++14, 17  -> 표준에 이미 포함되어 있음.
+int int = stoi(input);
+string str = to_string(int_value);
+```
+</p>
+</details>
+
+<details><summary style="color:skyblue">부분 문자열 구하는 방법</summary>
+<p>
+
 - input.substr(시작 index, 문자열의 길이) -> O(N)
   
   - `#include <iostream>`에는 `#include <string>`이 내장되어 있으므로 보통 따로 추가하지 않는다.
@@ -84,6 +94,9 @@ int tolower ( int c );
 
 - += 로 직접 더함 -> O(1)
 
+</p>
+</details>
+	
 <details><summary style="color:skyblue">참조자(reference) 란?</summary>
 <p>
   
@@ -132,7 +145,9 @@ cout << "x의 주소값 : " << &x << ", y의 주소값 : " << &y; //x의 주소�
 </details>
 
 **셋맵**
-1. **트리 셋맵, 해시 셋맵**
+	
+<details><summary style="color:skyblue">트리 셋맵, 해시 셋맵</summary>
+<p>
 
 c++의 set, map은 이진 트리로 구현된 컨테이너이기 때문에 기본적으로 정렬됨.
 
@@ -140,9 +155,14 @@ c++의 set, map은 이진 트리로 구현된 컨테이너이기 때문에 기�
 
 O(1)인 해시 셋 `unordered_set`, 해시 맵 `unordered_map` 을 사용해서 풀이해보자.
 
-**출력하기**
+</p>
+</details>
 
-2. 반복자를 활용한 방법
+
+<details><summary style="color:skyblue">출력하기</summary>
+<p>
+
+1. 반복자를 활용한 방법
 
 ```c++
 for (auto iter = set.begin(); iter != set.end(); iter++) {
@@ -158,7 +178,8 @@ for (auto & iter : map) {
 }
 ```
 
-c++17부터 아래와 같이 작성할 수 있다.
+
+2. c++17부터 아래와 같이 작성할 수 있다.
 `auto [a, b]` 문법을 알고 난 후 반복자는 거의 사용하지 않고 있다
 
 ```c++
@@ -167,16 +188,24 @@ for (auto [k, v]: map) {
 }
 ```
 
-
-3. set 자료형 insert 함수의 반환값
+</p>
+</details>
+	
+<details><summary style="color:skyblue">set 자료형 insert 함수의 반환값</summary>
+<p>
 
 link: [#](https://yonmy.com/archives/9)
 insert 했을 경우, 즉 중복된 값이 없어서 넣은 경우, second 에서 true 값 반환
 insert 하지 못했을 경우, 즉 중복된 값이 이미 있어서 못넣은 경우, second 에서 false 값 반환
 
-4. `s.find(value)` 는 찾지 못했을 때 `s.end()` 반복자를 반환합니다.
+</p>
+</details>
 
-5. map, set 정렬 조건을 바꾸기
+
+`s.find(value)` 는 찾지 못했을 때 `s.end()` 반복자를 반환합니다.
+
+<details><summary style="color:skyblue">map, set 정렬 조건을 바꾸기</summary>
+<p>
 
 ```c++
 set<string, greater<string>> s; // 내림차순으로 정렬
@@ -194,22 +223,34 @@ struct compare {
 set<string, compare> s; // 비교용 구조체 compare
 ```
 
-6. map, set을 vector로 초기화하기
-ㅡ
+</p>
+</details>
+	
+	
+<details><summary style="color:skyblue">map, set을 vector로 초기화하기</summary>
+<p>
+
 ```c++
 map<string, int> words;
 ... // 삽입
 vector<pair<string, int>> vec(words.begin(), words.end());
 ```
-
-7. map의 value로 vector 컨테이너 활용
+</p>
+</details>
+	
+<details><summary style="color:skyblue">map의 value로 vector 컨테이너 활용</summary>
+<p>	
 
 ```c++
 map<char, vector<int> > m;
 sort(m['a'].begin(), m['a'].end());
 ```
 
-8. map의 [] 연산자
+</p>
+</details>
+			
+<details><summary style="color:skyblue">map의 [] 연산자</summary>
+<p>	
 
 [] 연산자는 map에 없는 key를 참조하면 자동으로 선언된 값의 default 생성자를 호출해서 원소를 추가해준다.
 
@@ -221,8 +262,11 @@ map<int, char> cmd;
 if (cmd[t]) -> t라는 key가 있을 때: null, 0이 아닌 다른 값이면 true
 t라는 key가 존재하지 않을 때: 에러를 던지지 않고 key를 삽입시키고 value는 자료형의 default value으로 할당돼 false를 리턴
 ```
-
-9. map의 유효한 key 개수 세기
+</p>
+</details>
+	
+<details><summary style="color:skyblue">map의 유효한 key 개수 세기</summary>
+<p>
 
 ```c++
 map<int, int> m;
@@ -234,10 +278,13 @@ for (auto [key, value] : m) { // p는 pair<int, int> 구조임.
     }
 }
 ```
-
+</p>
+</details>
+	
 ## 03월 11일 - 스택, 큐, 덱
 
-**공백 포함 입력받기**
+<details><summary style="color:skyblue">getline 공백 포함 입력받기</summary>
+<p>
 
 ```c++
 getline(cin, <변수명>)
@@ -246,7 +293,11 @@ string str;
 getline(cin, str);
 ```
 
-**queue가 지원하는 메소드**
+</p>
+</details>
+	
+<details><summary style="color:skyblue">queue가 지원하는 메소드, back()</summary>
+<p>
 
 기본적으로 
 
@@ -258,6 +309,9 @@ getline(cin, str);
 - `back()`
 
 back_pop 이런 건 없지만 맨 뒤 원소에 접근할 수 있다!
+
+</p>
+</details>
 
 **내게 부족한 알고리즘 사고 능력을 키우는 문제 추천**
 
@@ -278,21 +332,26 @@ int idx = find(dq.begin(), dq.end(), t) - dq.begin(); // t가 있는 인덱스
 
 ## 03월 15일 - 정수론
 
-1. 입력에 대해 소수 판정하기
-   
-   나누는 수를 2부터 √𝑁까지 살펴보는 O(√𝑁) 방법으로 소수 판정
-   
-   ```cpp
-   bool isPrime(int n) {
-       if (n <= 1) return false;
-       for (ll i = 2; i * i <= n; i++)
-           if (n % i == 0)
-               return false;
-       return true;
-   }
-   ```
+<details><summary style="color:skyblue">입력에 대해 소수 판정하기</summary>
+<p>
+	 
+나누는 수를 2부터 √𝑁까지 살펴보는 O(√𝑁) 방법으로 소수 판정
 
-2. 범위 내 모든 소수 구하기 - 에라토스테네스의 체
+```c++
+bool isPrime(int n) {
+if (n <= 1) return false;
+for (ll i = 2; i * i <= n; i++)
+   if (n % i == 0)
+       return false;
+return true;
+}
+```
+
+</p>
+</details>
+
+<details><summary style="color:skyblue">범위 내 모든 소수 구하기 - 에라토스테네스의 체</summary>
+<p>
 
 ```c++
 void eratosthenes() {
@@ -306,7 +365,12 @@ void eratosthenes() {
 }
 ```
 
-2.1 소인수분해를 위해 idx 값이 가지는 가장 작은 소인수 저장하기
+	
+</p>
+</details>
+	
+<details><summary style="color:skyblue">소인수분해를 위해 idx 값이 가지는 가장 작은 소인수 저장하기</summary>
+<p>
 
 에라토스테스의 체 응용
 
@@ -328,8 +392,12 @@ void calEratos() {
     }
 }
 ```
-
-3. 최대공약수 구하기, 유클리드 호제법
+				     
+</p>
+</details>
+	
+<details><summary style="color:skyblue">최대공약수 구하기, 유클리드 호제법</summary>
+<p>
 
 ```c++
 int calGcd(int a, int b) { // a < b
@@ -338,7 +406,10 @@ int calGcd(int a, int b) { // a < b
     return calGcd(b % a, a);
 }
 ```
-
+			   
+</p>
+</details>
+	
 ## 03월 18일 - 브루트 포스
 
 1. 2차원 배열에서 규칙적인 패턴이 있을 때 인덱스 접근 아이디어
