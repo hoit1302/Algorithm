@@ -412,7 +412,12 @@ int calGcd(int a, int b) { // a < b
 	
 ## 03월 18일 - 브루트 포스
 
-1. 2차원 배열에서 규칙적인 패턴이 있을 때 인덱스 접근 아이디어
+제일 중요한 건 완전탐색이 가능한지 시간 복잡도를 계산해보는 것이다!
+
+<details><summary style="color:skyblue">2차원 배열에서 패턴이 있을 때 인덱스 접근/판단 아이디어: i+j, i-j, etc</summary>
+<p>
+
+기업 코테에서도 기출된 아이디어이다!
 
 ```c++
 BWBW
@@ -427,49 +432,55 @@ n X n matrix에서
 왼쪽 상향은 i-j 값으로 -(n-1) ~ (n-1)로 판단할 수 있다. (feat. nqueen)
 ```
 
-2. 제일 중요한 건 숫자가 작다 싶으면 브루트포스가 가능한지 시간 복잡도를 계산해보는 것이다!
+</p>
+</details>
 
-3. 조합 (nCr)
+<details><summary style="color:skyblue">조합 (nCr)</summary>
+<p>
 
-#include <algorithm>에 next_permutation, prev_permutation 포함되어 있음.
+`#include <algorithm>`에 `next_permutation`, `prev_permutation` 포함되어 있음.
 
-참고로, 숫자가 오름차순으로 정렬되어 있을 때 `next`, 내림차순으로 정렬되어 있을 때 `prev`를 사용한다.
+숫자가 오름차순으로 정렬되어 있을 때 `next`, 내림차순으로 정렬되어 있을 때 `prev`를 사용한다.
 
 ```c++
-// 5C2일 때, {1, 1, 0, 0, 0}으로 설정하고 prev_permutation 돌리면 됨.
 vector<bool> com(n, false);
-for (int i = 0; i < c; i++) {
+for (int i = 0; i < r; i++) {
     com[i] = true;
-}
+} // {1, 1, 0, 0, 0} -> prev
 
 do {
-    for (int i = 0; i < c; i++) {
-        if (com[i]) {
+    for (int i = 0; i < n; i++) {
+        if (com[i]) { // true라면 사용이므로 출력
             cout << element[i];
         }
     } cout << '\n';
     // 한 가지의 조합을 구했음. 원하는 로직 수행하기
-} while (prev_permutation(com.begin(), com.end()));
+} while (prev_permutation(com.begin(), com.end())); 
 ```
 
-4. 순열 (nPr)
+</p>
+</details>
 
-```c++
-// 5P2일 때 , {1, 1, 0, 0, 0}으로 설정하고 prev_permutation 돌리면 됨.
-vector<bool> com(n, false);
-for (int i = 0; i < c; i++) {
-    com[i] = true;
-}
+<details><summary style="color:skyblue">순열 (nPr)</summary>
+<p>
 
-do {
-    for (int i = 0; i < c; i++) {
-        if (com[i]) {
-            cout << element[i];
-        }
-    } cout << '\n';
-    // 한 가지의 조합을 구했음. 원하는 로직 수행하기
-} while (prev_permutation(com.begin(), com.end()));
-```
+
+</p>
+</details>
+
+<details><summary style="color:skyblue">중복조합 (nHr)</summary>
+<p>
+
+
+</p>
+</details>
+
+<details><summary style="color:skyblue">중복순열 (nπr)</summary>
+<p>
+
+
+</p>
+</details>
 
 ## 03월 22일 - 구현, 코너케이스
 
@@ -479,26 +490,36 @@ do {
 
 3. 이전의 값과 비교할 때는 가장 첫 값의 초기화를 주의하자.
 
-4. 맞왜틀! 마지막으로 확인해야 할 것은 자료형! long이라던가, double이라던가!!!
+4. 맞왜틀! 자료형 범위 확인하기
 
 5. 맞왜틀! 스택, 큐, 덱은 참조 전 비었는가를 꼭 확인하자
 
 6. string 클래스에서 `back()`, `pop_back()`과 같은 연산이 가능하다는 사실..!
 
-7. reverse 함수는 algorithm 헤더에
+<details><summary style="color:skyblue">reverse 함수는 결과가 반환되는 형식이 아닌 원본 데이터에 적용됨</summary>
+<p>
 
 ```c++
+#include <algorithm>
 reverse(v.begin() + 시작원소_인덱스, v.begin() + (마지막원소_인덱스 + 1) );
 ```
 
-8. 시간초과가 난다. 입출력을 더 빠르게 해주자.
+</p>
+</details>
+
+
+<details><summary style="color:skyblue">TLE: 입출력을 더 빠르게</summary>
+<p>
 
 ```c++
 cin.tie(0), cout.tie(0);
 ios_base::sync_with_stdio(0);
 ```
+</p>
+</details>
 
-9. vector가 지원하는 메소드, 리스트(list)처럼 활용하기
+<details><summary style="color:skyblue">vector가 지원하는 메소드: front, back, erase</summary>
+<p>
 
 ```c++
 auto element = v.front());
@@ -511,41 +532,26 @@ v.pop_back();
 v.erase(--v.end());
 ```
 
+</p>
+</details>
+
 ## 03월 25일 - 백트래킹
 
-1. 
-
-2. 컨테이너 내 원소의 개수를 세어주는 함수
-   
-   ```c++
-   count(belt.begin(), belt.end(), 0)
-   0의 개수를 반환함.
-   ```
-
-3. 전역 변수 사용
-
-재귀함수 사용시 함수를 계속 호출하므로 전역변수로 관리하는 것이 더 효율적이다.
-
-4. prev_permutation으로 조합 구현하기
+<details><summary style="color:skyblue">컨테이너 내 원소의 개수를 세어주는 함수: count</summary>
+<p>
 
 ```c++
-vector<bool> combination(n + 1, false); //1 ~ n까지의 수에 대한 조합정보 (true/false)
-
-for (int i = 1; i <= m; i++) { // m개의 원소 true로 셋팅
-    combination[i] = true;
-}
-
-do {
-    for (int i = 1; i <= n; i++) {
-        if (combination[i]) { //true라면 사용이므로 출력
-            cout << i << ' ';
-        }
-    }
-    cout << '\n';
-  } while (prev_permutation(combination.begin() + 1, combination.end())); //인덱스 1부터 사용
+count(belt.begin(), belt.end(), 0)
+0의 개수를 반환함.
 ```
 
-5. 가지치기 잘 해주기
+</p>
+</details>
+
+재귀함수 사용시 함수를 계속 호출하므로 **전역변수로 관리**하는 것이 더 효율적이다.
+
+<details><summary style="color:skyblue">가지치기 잘 해주기</summary>
+<p>
 
 전형적인 유형을 적어보자면
 
@@ -563,7 +569,13 @@ if (tmp + (n-depth) * MAX <= ans) {
 }
 ```
 
-6. 재귀함수에서 리턴값 활용하기
+- 갈 수 없는 방향이면 중단하기
+
+</p>
+</details>
+
+<details><summary style="color:skyblue">재귀함수에서 리턴값 활용하기, 스도쿠</summary>
+<p>
 
 ```c++
 bool fillSudoku(int fill) {
@@ -590,7 +602,12 @@ bool fillSudoku(int fill) {
 }
 ```
 
-외판원 순회 2 [10971](https://www.acmicpc.net/problem/10971)
+
+</p>
+</details>
+
+<details><summary style="color:skyblue">외판원 순회 2 ([10971](https://www.acmicpc.net/problem/10971)), 아이디어</summary>
+<p>
 
 *대박이다... 샘플 코드는 샘플 코드인 이유가 있다...*
 
@@ -598,13 +615,16 @@ bool fillSudoku(int fill) {
 
 하지만 시작 도시를 하나로 지정해도 답은 얻을 수 있다. 
 
-다시 잘~ 생각해보면 0 1 2 3 0 은 결국 1 2 3 0 1, 2 3 0 1 2, 3 0 1 2 3과 같은 비용이 든다.
+**다시 잘~ 생각해보면 0 1 2 3 0 은 결국 1 2 3 0 1, 2 3 0 1 2, 3 0 1 2 3과 같은 비용이 든다.**
 
 0으로 시작한 한 가지 경우가 1로 시작한 1가지 경우, 2로 시작한 1가지 경우, 3으로 시작한 1가지 경우와 동일하다.
 
 backtracking 알고리즘을 통해 0으로 시작하는 모든 경우를 탐색하기 때문에 시작점을 하나로 지정해주어도 풀이가 된다.
 
 그래서 실제로 제출해보면 최대 n 값인 10배 정도 차이가 난다.
+
+</p>
+</details>
 
 ## 03월 29일 - dp
 
@@ -618,7 +638,7 @@ backtracking 알고리즘을 통해 0으로 시작하는 모든 경우를 탐색
   - 이미 알고 있는 작은 문제부터 원하는 문제까지 탐색
   - 속도가 더 빠름
 
-<u>동적 계획법의 특징은 이미 계산한 작은 조각들을 또 다시 계산할 필요가 없다는 것이다.<u>
+<u>동적 계획법의 특징은 이미 계산한 작은 조각들을 또 다시 계산할 필요가 없다는 것이다.</u>
 
 bottom-up
 
@@ -649,15 +669,16 @@ int f(int r, int c) {
 
 **동적 계획법을 푸는 대표적인 문제와 방식**
 
-- LIS (가장 긴 증가하는 부분 수열)
-  
-  ```c++
-  /**
-  * i번 idx로 끝나는 증가하는 부분 수열 길이의 최댓값 계산하기
-  * 따라서 dp의 마지막 원소가 정답이 아님. 최댓값을 갱신해주어야 함.
-  * 시간 복잡도 O(n^2)
-  */
-  int lis(int n, vector<int> &arr) {
+<details><summary style="color:skyblue">LIS (가장 긴 증가하는 부분 수열)</summary>
+<p>
+
+```c++
+/**
+* i번 idx로 끝나는 증가하는 부분 수열 길이의 최댓값 계산하기
+* 따라서 dp의 마지막 원소가 정답이 아님. 최댓값을 갱신해주어야 함.
+* 시간 복잡도 O(n^2)
+*/
+int lis(int n, vector<int> &arr) {
     int ans = 1;
     vector<int> dp(n, 1);
     for (int i = 0; i < n; i++) {
@@ -669,74 +690,75 @@ int f(int r, int c) {
         ans = max(ans, dp[i]);
     }
     return ans;
-  }
-  ```
+}
+```
 
-/**
+</p>
+</details>
 
-* 2.
 
-* dp[i] : 증가하는 부분 수열의 길이가 i인 수 중에 가장 작은 수
+<details><summary style="color:skyblue">LIS Advance</summary>
+<p>
 
-* idx : 가장 긴 증가하는 부분 수열의 길이
+dp[i] : 증가하는 부분 수열의 길이가 i인 수 중에 가장 작은 수
 
-* 
+idx : 가장 긴 증가하는 부분 수열의 길이
 
-* 시간 복잡도 O(nk) (k는 idx의 크기)
+시간 복잡도 O(nk) (k는 idx의 크기)
 
-* 
+-> k가 n이 될 수 있으므로 이론상 시간복잡도는 O(n^2)으로 동일하지만,
 
-* -> k가 n이 될 수 있으므로 이론상 시간복잡도는 O(n^2)으로 동일하지만,
+증가하는 관계일 때 break를 해줌으로써 실제 연산횟수는 더 적어서 1번 함수보다 빠른 풀이
 
-* 증가하는 관계일 때 break를 해줌으로써 실제 연산횟수는 더 적어서 1번 함수보다 빠른 풀이
-  */
-  int lisAdv(int n, vector<int> &arr) {
-  vector<int> dp(n + 1, 0); //dp[1]을 갱신하기 위해 dp[0] = 0으로 설정
-  int idx = 0;
-  
-  for (int i = 0; i < n; i++) {
-    for (int j = idx; j >= 0; j--) {
-  
-        if (arr[i] > dp[j]) { //증가하는 관계라면
-            dp[j + 1] = arr[i];
-            if (j == idx) { //최장 길이 갱신
-                idx++;
+```c++
+
+int lisAdv(int n, vector<int> &arr) {
+    vector<int> dp(n + 1, 0); //dp[1]을 갱신하기 위해 dp[0] = 0으로 설정
+    int idx = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = idx; j >= 0; j--) {
+            if (arr[i] > dp[j]) { //증가하는 관계라면
+                dp[j + 1] = arr[i];
+                if (j == idx) { //최장 길이 갱신
+                    idx++;
+                }
+                break;
             }
-            break;
         }
-  
     }
-  }
-  return idx;
-  }
+    return idx;
+}
+```
 
-/**
+</p>
+</details>
 
-* 3.
 
-* lisAdv에서 이분탐색을 활용해 구현
+<details><summary style="color:skyblue">LIS Advance with 이분탐색</summary>
+<p>
 
-* 시간 복잡도 O(nlogk) (k는 dp의 크기)
-  */
-  int lisFinal(int n, vector<int> &arr) {
-   vector<int> dp;
-  
-   for (int i = 0; i < n; i++) {
-  
-       int pos = lower_bound(dp.begin(), dp.end(), arr[i]) - dp.begin(); //arr[i] 이상의 값이 처음 나오는 위치
-       if (pos == dp.size()) { //arr[i]가 가장 크다면 pos 값이 dp.size()와 같음 -> 최장 길이 갱신
-           dp.push_back(arr[i]);
-       }
-       dp[pos] = arr[i]; //dp[pos]의 값이 arr[i]이상이므로 더 작은 arr[i]로 덮어 씌우기
-  
-   }
-   return dp.size();
-  }
-  
-  ```
-  
-  ```
-- knapsack
+시간 복잡도 O(nlogk) (k는 dp의 크기)
+
+```c++
+int lisFinal(int n, vector<int> &arr) {
+    vector<int> dp;
+    for (int i = 0; i < n; i++) {
+        int pos = lower_bound(dp.begin(), dp.end(), arr[i]) - dp.begin(); //arr[i] 이상의 값이 처음 나오는 위치
+        if (pos == dp.size()) { //arr[i]가 가장 크다면 pos 값이 dp.size()와 같음 -> 최장 길이 갱신
+            dp.push_back(arr[i]);
+        }
+        dp[pos] = arr[i]; //dp[pos]의 값이 arr[i]이상이므로 더 작은 arr[i]로 덮어 씌우기
+    }
+    return dp.size();
+}
+```
+
+</p>
+</details>
+
+<details><summary style="color:skyblue">knapsack (냅색)</summary>
+<p>
   
   ```c++
   3번 물품을 사용할 때, 1~2번 물품한 사용한 정보에서 갱신되어야함.
@@ -754,8 +776,12 @@ for (int i = 1; i <= n; i++) { // n: 물건 개수
     }
 }
 
-```
-- LCS (최장 공통 부분 수열)
+</p>
+</details>
+
+<details><summary style="color:skyblue">LCS (최장 공통 부분 수열)</summary>
+<p>
+
 ```c++
 int lcs(string str1, string str2) {
     int n = str1.length();
@@ -774,12 +800,19 @@ int lcs(string str1, string str2) {
 }
 ```
 
-- 외판원 순회 Traveling Salesman problem (TSP) [#](https://www.acmicpc.net/problem/2098)
-  * dp (재귀함수로, memoization)을 매우 어려워하는 나에게 가혹한 문제, **재도전하기**
-  * **dfs 탐색 순서가 곧 cost 배열 갱신 순서!**
-  * dfs 함수에 대한 모호한 이해
-  * 생소한 비트마스킹
-  * 막상 코드를 읽으면 꼬인 것 없이 깔끔한 형태이지만 코드를 쓱 보면서 안 읽힌다. 이해를 못했다는 거겠지.
+</p>
+</details>
+
+<details><summary style="color:skyblue">외판원 순회 Traveling Salesman problem (TSP), 재도전하기</summary>
+<p>
+
+[#](https://www.acmicpc.net/problem/2098)
+
+* dp (재귀함수로, memoization)을 매우 어려워하는 나에게 가혹한 문제, **재도전하기**
+* **dfs 탐색 순서가 곧 cost 배열 갱신 순서!**
+* dfs 함수에 대한 모호한 이해
+* 생소한 비트마스킹
+* 막상 코드를 읽으면 꼬인 것 없이 깔끔한 형태이지만 코드를 쓱 보면서 안 읽힌다. 이해를 못했다는 거겠지.
 
 ```c++
 cost[node][bit]: bit가 나타내는 도시를 방문했고 현재 node에 있을 때, 지금까지의 최소 비용
@@ -799,6 +832,10 @@ int dfs(int cur_node, int cur_bit) {
     return cost[cur_node][cur_bit];
 }
 ```
+
+
+</p>
+</details>
 
 ## 04월 01일 - 우선순위 큐
 
