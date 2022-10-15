@@ -537,6 +537,30 @@ v.erase(--v.end());
 
 ## 03월 25일 - 백트래킹
 
+<details><summary style="color:skyblue">재귀함수는 절차지향적 사고 대신 귀납적인 사고로 이해하자</summary>
+<p>
+
+- 절차지향적: (3, 5, 300)은 (3, 2, 300)을 호출하고 이는 (3, 1, 300)을 호출한다고 따라가기 
+- 귀납적 사고:
+  - 1번 도미노가 쓰러진다
+  - k번 도미노가 쓰러지면 k+1번 도미노도 쓰러진다
+  - 귀납적으로 -> 모든 도미노가 쓰러진다는 결론에 바로 도달
+
+
+- 재귀 함수의 조건: 기저 조건이 있어야하고 모든 입력은 기저조건으로 수렴해야 한다
+
+1. 함수 정의하기
+2. 기저조건 정하기
+3. 기저조건으로 수렴하도록 문제 조건에 따라 재귀 호출하기
+
+문제 추천: [#](https://github.com/encrypted-def/basic-algo-lecture/blob/master/workbook/0x0B.md)
+</p>
+</details>
+
+`pow(2, n)`은 `1<<(n)`으로 쉽게 구해줄 수 있다.
+
+수학적 지식: 만약 n^k mod c = tmp일 때, n^2k mod c = 2tmp mod c이다.
+
 <details><summary style="color:skyblue">컨테이너 내 원소의 개수를 세어주는 함수: count</summary>
 <p>
 
