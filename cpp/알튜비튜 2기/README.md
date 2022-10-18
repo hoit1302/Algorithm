@@ -438,24 +438,28 @@ n X n matrix에서
 <details><summary style="color:skyblue">조합 (nCr)</summary>
 <p>
 
+**n개 중에 c개 고르기**
+
+크기 n의 배열에서 c개의 1이 있고 나머지는 0인 배열을 순열로 돌림. 그리고 1인 idx만 취함
+
 `#include <algorithm>`에 `next_permutation`, `prev_permutation` 포함되어 있음.
 
 숫자가 오름차순으로 정렬되어 있을 때 `next`, 내림차순으로 정렬되어 있을 때 `prev`를 사용한다.
 
 ```c++
-vector<bool> com(n, false);
+vector<bool> com(n, 0);
 for (int i = 0; i < r; i++) {
-    com[i] = true;
-} // {1, 1, 0, 0, 0} -> prev
+    com[i] = 1;
+} // 1 1 0 0 0 마지막 수열이므로 prev
 
 do {
     for (int i = 0; i < n; i++) {
-        if (com[i]) { // true라면 사용이므로 출력
+        if (com[i]) { // true라면 해당 idx의 값 취함
             cout << element[i];
         }
     } cout << '\n';
     // 한 가지의 조합을 구했음. 원하는 로직 수행하기
-} while (prev_permutation(com.begin(), com.end())); 
+} while (prev_permutation(com.begin(), com.end()));
 ```
 
 </p>
@@ -464,6 +468,29 @@ do {
 <details><summary style="color:skyblue">순열 (nPr)</summary>
 <p>
 
+**n개 중에 r개를 중복 없이 뽑아 순서를 고려하여 다른 경우의 수로 보는 방식이다.**
+
+원하는 값 자체가 들어간 배열을 오름차순으로 정렬하여 next_permutation에 직접 넣는다.
+
+reverse를 사용해 중복된 수열을 건너뛴다.
+
+예시: 5P2일 때
+
+- 12345 -> 12 출력됨 @ 
+- 12435 -> 똑같은 12 출력되므로 중복됨.
+- 이를 피하기 위해서 @ 때 12를 출력한 뒤에 c개 이후의 나머지 값들은 reverse 시켜서 건너뛰도록 함. 
+- 12543 다음 값은 13245 이므로 13이 출력됨.
+
+```c++
+vector<int> comb = {7, 1, 8, 9};
+sort(comb.begin(), comb.end());
+do {
+    for (int i = 0; i < c; i++) {
+        cout << comb[i] << ' ';
+    } cout << '\n';
+    reverse(comb.begin() + c, comb.end());
+} while (next_permutation(comb.begin(), comb.end())); // 1 7 8 9
+```
 
 </p>
 </details>
@@ -554,6 +581,34 @@ v.erase(--v.end());
 3. 기저조건으로 수렴하도록 문제 조건에 따라 재귀 호출하기
 
 문제 추천: [#](https://github.com/encrypted-def/basic-algo-lecture/blob/master/workbook/0x0B.md)
+</p>
+</details>
+
+<details><summary style="color:skyblue">하노이 탑 이동 순서: 재귀 풀이법</summary>
+<p>
+
+- 원판이 1개일 때 원하는 곳으로 움직일 수 있다. 
+- 원판이 k개일 때 옮길 수 있다면 k+1개일 때도 원판을 옮길 수 있다. 
+
+-> 재귀다!
+
+1. 재귀 함수 정의: size개의 원판을 start에서 end로 옮겨라.
+2. 기저 조건: 원판이 1개일 때는 바로 start에서 end로 옮기고 끝내자
+3. 재귀식:
+   - size-1개의 원판들은 start에서 mid로 모두 옮기고 
+   - size 크기의 원판을 start에서 end로 옮긴 다음에 
+   - mid에 있는 size-1개의 원판들을 end로 옮기면 된다.
+
+
+- 테크닉 1. mid를 (1+2+3) - s - e로 구하는 것이고 
+- 테크닉 2.
+    ```
+    초항 A1 = 1, An = 2*An-1 + 1의 일반항 An = 2^n - 1이므로
+    원반을 바꾸는 횟수는 (1 << n) - 1로 구할 수 있다.
+    수학적으로는 치환을 활용하여 일반항을 구할 수 있다.
+    참고: Bn = An + 1 = 2*Bn-1
+    ```
+
 </p>
 </details>
 
