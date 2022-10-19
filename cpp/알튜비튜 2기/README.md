@@ -39,7 +39,7 @@ bool cmpStr(const string &a, const string &b) {
 <details><summary style="color:skyblue">char 종류판단, char string 변환, 대소문자 판단변환</summary>
 <p>
 	
-1. character 판단 함수
+1. character 판단 함수 -> 무조건 5글자다...
 
 ```c++
 bool t = isdigit(input[0]);
@@ -50,7 +50,9 @@ isalpha(char), isalnum(char)
 
 ```c++
 string (size_t n, char c);
-s.append(1, c); // s 문자열에 c 문자를 string으로 변환하여 덧붙임.
+char ch = 'a';
+s.append(1, ch); // s 문자열에 c 문자를 string으로 변환하여 덧붙임.
+s += string(1, ch);
 ```
 
 3. 대소문자 판별, 변환
@@ -83,16 +85,35 @@ string str = to_string(int_value);
 </p>
 </details>
 
-<details><summary style="color:skyblue">부분 문자열 구하는 방법</summary>
+<details><summary style="color:skyblue">부분 문자열:substr(), 특정 문자열이 있는지: find(), npos</summary>
 <p>
 
-- input.substr(시작 index, 문자열의 길이) -> O(N)
-  
-  - `#include <iostream>`에는 `#include <string>`이 내장되어 있으므로 보통 따로 추가하지 않는다.
+`#include <iostream>`에는 `#include <string>`이 내장되어 있으므로 보통 따로 추가하지 않는다.
 
-- substr(시작 index) -> 시작 index ~ 마지막까지의 부분 문자열
+참고로 여기서 설명하고 있는 것은 string에서 제공하는 find 함수로, algorithm 헤더에 있는 find와 다르다. 
 
-- += 로 직접 더함 -> O(1)
+input.substr(시작 index, 문자열의 길이) -> O(N)
+
+```c++
+string str= "we think in generalities, but we live in details.";
+string str2 = str.substr (3,5);     // "think"
+
+size_t pos = str.find("live");      // position of "live" in str
+if (pos != str.npos) {
+    string str3 = str.substr(pos);  // "live in details."
+}
+
+size_t pos = str.find("banana");
+if (pos != string::npos) {          // false
+    string str4 = str.substr(pos);
+}
+
+string c = "we";
+size_t pos = str.find(c, 2);        // str 문자열 2번 idx부터 we라는 문자열 검색하기
+if (pos != string::npos) {
+    string str4 = str.substr(pos);  // we live in details.   
+}
+```
 
 </p>
 </details>
@@ -319,12 +340,38 @@ back_pop 이런 건 없지만 맨 뒤 원소에 접근할 수 있다!
 
 스택을 활용해 오름차순, 내림차순을 조건에 맞게 구현하는 문제
 
-**deque, find 함수 사용하기✨**
+<details><summary style="color:skyblue">deque, find 함수 사용하기✨</summary>
+<p>
+
+find 함수는 (begin, `end`, 찾고자하는 원소)로 호출하는데, 만약 원소를 찾지 못했다면 `end`를 반환한다.
 
 ```c++
 #include <algorithm>
-int idx = find(dq.begin(), dq.end(), t) - dq.begin(); // t가 있는 인덱스
+
+deque<int> dq;
+dq.push_back(1);
+dq.push_back(2);
+dq.push_back(3);
+dq.push_back(5);
+int t = 4; // or 5
+
+int idx = find(dq.begin(), dq.end(), t) - dq.begin(); // t의 idx 찾기
+if (idx == dq.size()) {
+    cout << "t element not found in dq\n";
+} else {
+    cout << dq[idx] << '\n';
+}
+
+auto pos = find(dq.begin(), dq.end(), t); // t의 위치 찾기 
+if (pos == dq.end()) { // __deque_iterator 비교
+    cout << "t element not found in dq\n";
+} else {
+    cout << dq[idx] << '\n';
+}
 ```
+
+</p>
+</details>
 
 **deque은 index 접근이 가능하다!!**
 
@@ -685,8 +732,10 @@ bool fillSudoku(int fill) {
 </p>
 </details>
 
-<details><summary style="color:skyblue">외판원 순회 2 ([10971](https://www.acmicpc.net/problem/10971)), 아이디어</summary>
+<details><summary style="color:skyblue">외판원 순회 2, 아이디어</summary>
 <p>
+
+[10971](https://www.acmicpc.net/problem/10971)
 
 *대박이다... 샘플 코드는 샘플 코드인 이유가 있다...*
 
@@ -838,13 +887,14 @@ int lisFinal(int n, vector<int> &arr) {
 
 <details><summary style="color:skyblue">knapsack (냅색)</summary>
 <p>
-  
-  ```c++
-  3번 물품을 사용할 때, 1~2번 물품한 사용한 정보에서 갱신되어야함.
-  순차적으로 갱신할 때 같은 물품을 중복해서 사용할 수 있음.
-  이를 방지하기 위해 최대 용량을 감소시키면서 계산하기 
-  ```
 
+3번 물품을 사용할 때, 1~2번 물품한 사용한 정보에서 갱신되어야함.
+
+순차적으로 갱신할 때 같은 물품을 중복해서 사용할 수 있음.
+
+이를 방지하기 위해 최대 용량을 감소시키면서 계산하기 
+
+```c++
 int ans = 1;
 for (int i = 1; i <= n; i++) { // n: 물건 개수
     for (int j = k; j >= 1; j--) { // k: 최대 용량
@@ -854,6 +904,7 @@ for (int i = 1; i <= n; i++) { // n: 물건 개수
         }
     }
 }
+```
 
 </p>
 </details>
@@ -912,20 +963,25 @@ int dfs(int cur_node, int cur_bit) {
 }
 ```
 
-
 </p>
 </details>
 
 ## 04월 01일 - 우선순위 큐
 
-1. 기본적인 선언
-   
-   ```c++
-   priority_queue<ci> max_heap; // 기본적으로
-   priority_queue<ci, vector<ci>, greater<>> min_heap;
-   ```
+<details><summary style="color:skyblue">1. 기본적인 선언</summary>
+<p>
 
-2. 정렬 조건 만들기
+```c++
+typedef pair<int, int> ci;
+priority_queue<ci> max_heap; // 기본적으로
+priority_queue<ci, vector<ci>, greater<>> min_heap;
+```
+</p>
+</details>
+
+
+<details><summary style="color:skyblue">2. 구조체 자체에 정렬 조건 만들기</summary>
+<p>
 
 ```c++
 struct em {
@@ -966,17 +1022,26 @@ struct cmp {
 priority_queue<people, vector<people>, cmp> pq;
 ```
 
-3. 알고리즘 아이디어, 유효성 검사 배열
+</p>
+</details>
+
+<details><summary style="color:skyblue">알고리즘 아이디어, 유효성 검사 배열</summary>
+<p>
 
 is_valid, visited, is_used 와 같은 배열을 잘 활용하자
 
 대표적 예시: 7662번, bfs&dfs, N-Queen
 
+</p>
+</details>
+
 ## 04월 08일 - 이분 탐색
 
-1. binary_search()
-   binary_search() -> 이분탐색으로 원소가 있는지를 확인하고, 결과를 리턴하는 함수
-   `algorithm.h`에 정의되어 있다.
+1. `binary_search()`
+
+이분탐색으로 원소가 있는지를 확인하고, 결과를 리턴하는 함수.
+
+`algorithm.h`에 정의되어 있다.
 
 2. lower_bound()
 
@@ -1154,6 +1219,9 @@ ASP: 플로이드-워셜
 
 ### 1. 다익스트라 Dijkstra
 
+<details><summary style="color:skyblue">다익스트라란?</summary>
+<p>
+
 정점 기준 탐색
 
 시작 정점으로부터 가장 가까운 정점부터 탐색하는 그디리적 접근
@@ -1170,7 +1238,11 @@ ASP: 플로이드-워셜
 
 다익스트라는 음의 사이클을 잡아낼 수 없음
 
-의사코드
+</p>
+</details>
+
+<details><summary style="color:skyblue">의사코드</summary>
+<p>
 
 ```c++
 모든 정점까지의 거리를 담은 dist 배열을 INF로 초기화
@@ -1191,8 +1263,11 @@ v는 *탐색하지 않은 정점 중* 이란 조건이 붙어있다.
 실 구현할 때는 개인적으로 u, v보다는 from to를 활용한다.
 dist가 갱신되었을 때는 갱신된 정보를 다시 pq에 삽입해주어야 한다.
 ```
+</p>
+</details>
 
-코드
+<details><summary style="color:skyblue">코드</summary>
+<p>
 
 ```c++
 vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
@@ -1218,11 +1293,18 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
 }
 ```
 
+</p>
+</details>
+
 응용문제: [미확인 도착지](https://www.acmicpc.net/problem/9370): 다양한 최단 경로가 있을 때를 추가로 다뤄야하는 문제
 
 - 같은 거리/최단 경로일 때로 분기를 나누어서 작성해주어야 함.
 
+
 ### 2. 플로이드 워셜
+
+<details><summary style="color:skyblue">플로이드 워셜이란?</summary>
+<p>
 
 정점 기준 탐색
 
@@ -1235,6 +1317,12 @@ vector<int> dijkstra(int start, int v, vector<vector<ci>> &graph) {
 O(V^3)
 
 중간 정점을 지나는 모든 경로에 대한 값을 계산한다.
+
+</p>
+</details>
+
+<details><summary style="color:skyblue">코드</summary>
+<p>
 
 ```c++
 // 1. 자기 자신과의 거리는 0으로 초기화
@@ -1254,7 +1342,14 @@ void floydWarshall(int n, vector<vector<int>> &graph) {
 }
 ```
 
+</p>
+</details>
+
 ### 3. 벨만-포드 bellmanFord
+
+
+<details><summary style="color:skyblue">벨만-포드란?</summary>
+<p>
 
 하나의 시작점에서 모든 정점까지의 최단 경로를 구하는 SSP 알고리즘
 
@@ -1275,7 +1370,11 @@ O(VE)
 그 이상의 간선을 사용하면 **사이클 형성**됨.
 = 최단 경로를 이루는 간선이 V개 이상인 정점 A, B가 있다. = **V번 이상 갱신되는 간선이 있다.**
 
-의사 코드
+</p>
+</details>
+
+<details><summary style="color:skyblue">의사 코드</summary>
+<p>
 
 ```c++
 for (V-1회 루프) { // (V-1) * E
@@ -1287,8 +1386,11 @@ for (모든 간선에 대해) { // E
         음의 사이클 존재!
 }
 ```
+</p>
+</details>
 
-코드
+<details><summary style="color:skyblue">코드</summary>
+<p>
 
 ```c++
 // edge는 struct로 정의된 구조체.
@@ -1320,7 +1422,11 @@ vector<ll> bellmanFord(int start, int n, int m, vector<edge> &edges) {
 }
 ```
 
-튜플 사용 방법
+</p>
+</details>
+
+<details><summary style="color:skyblue">튜플 사용 방법</summary>
+<p>
 
 ```c++
 #include <tuple>
@@ -1332,9 +1438,10 @@ int b = get<1>(edges[0]);
 int c = get<2>(edges[0]);  
 ```
 
-팁
-코딩테스트는 시간이 부족하므로 int 최댓값을
-const int INF = 2e9로 두자.
+</p>
+</details>
+
+코딩테스트는 시간이 부족하므로 int 최댓값을 `const int INF = 2e9`로 두자.
 
 ## 05월 17일 - 트리
 
