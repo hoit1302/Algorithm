@@ -545,6 +545,28 @@ do {
 <details><summary style="color:skyblue">중복조합 (nHr)</summary>
 <p>
 
+n가지의 타입 중 c개를 중복해서 뽑는 경우의 수 구하기
+
+c개의 0, n-1개의 칸막이를 뜻하는 1로 next_per 돌림
+
+```c++
+void solution(int n, int c, vector<int> element) {
+    vector<int> brute(c + n - 1); 
+    fill(brute.begin() + c, brute.end(), 1);
+    do {
+        vector<int> res;        // 중복 조합의 결과 저장 nHc
+        int idx = 0;
+        for (int i = 0; i < c + n - 1; i++) {
+            if (brute[i]) {     // 칸막이가 나타나면 다음 타입으로 넘어감
+                idx++;
+            } else {            // 0이면 res 배열에 원소를 추가함
+                res.push_back(element[idx]); // 0이 c개 있으므로 의도대로 c개가 담김
+            }
+        }
+        // 중복 조합의 한 가지 경우에 대해 필요한 작업하기
+    } while (next_permutation(brute.begin(), brute.end()));
+}
+```
 
 </p>
 </details>
