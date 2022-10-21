@@ -574,6 +574,21 @@ void solution(int n, int c, vector<int> element) {
 <details><summary style="color:skyblue">중복순열 (nπr)</summary>
 <p>
 
+백트래킹으로 구현하자.
+
+```c++
+void solution(int depth, vector<int> res, int n, int c, vector<int> &element) {
+    if (depth == c) {
+        // c개를 골라 한 가지 경우가 정해졌다. 원하는 로직을 수행하자. 
+        return;
+    }
+    for (int i = 0; i < n; i++) {
+        res.push_back(element[i]);
+        solution(depth + 1, res, n, c, element);
+        res.erase(--res.end());
+    }
+}
+```
 
 </p>
 </details>
@@ -625,7 +640,7 @@ v.erase(v.begin(), v.begin() + 2); // 0 <= 삭제 < 2로 마지막은 포함 X
 v.push_back(x);
 auto element = v.back();
 v.pop_back();
-v.erase(--v.end());
+v.erase(--v.end()); // v.end()-- 쓰면 오류남.
 ```
 
 </p>
